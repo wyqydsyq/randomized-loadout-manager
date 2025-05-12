@@ -17,3 +17,7 @@ See `WYQ_TestWorld.ent` and/or `Randomized_Character_Base.et` for an example.
 
  - Uses vanilla reforger `SCR_EditableEntityComponent` weighted variant logic for randomization (makes it easy to configure in WB!)
  - Any variants with `NO PREFAB` will count as a chance to not spawn anything in that slot (e.g. chance to not have a backpack)
+
+
+## License
+APL - https://www.bohemia.net/community/licenses/arma-public-license
