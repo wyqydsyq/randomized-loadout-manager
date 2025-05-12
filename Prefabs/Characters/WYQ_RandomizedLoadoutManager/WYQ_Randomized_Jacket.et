@@ -1,0 +1,93 @@
+GameEntity : "{27162F1F6EE6581A}Prefabs/Characters/Uniforms/Jacket_Denim_01/Jacket_Denim_01_brownShirt.et" {
+ ID "5104869D194C6243"
+ components {
+  SCR_EditableEntityComponent "{65569C8878FFC2A7}" {
+   m_VariantData SCR_EditableEntityVariantData "{65569C887CF46977}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{65569C887DCD17D3}" {
+      m_sVariantPrefab "{F1E29085C62F0D55}Prefabs/Characters/Uniforms/Jacket_KZS/Jacket_KZS.et"
+     }
+     SCR_EditableEntityVariant "{65569C886115C1D1}" {
+      m_sVariantPrefab "{BBA08EC4EC40FA94}Prefabs/Characters/Uniforms/Jacket_M70.et"
+     }
+     SCR_EditableEntityVariant "{65569C88656AECB4}" {
+      m_sVariantPrefab "{9F546CCA2582D16F}Prefabs/Characters/Uniforms/Jacket_M88.et"
+     }
+     SCR_EditableEntityVariant "{65569C8869BFAB9B}" {
+      m_sVariantPrefab "{D262D2102B9931C6}Prefabs/Characters/Uniforms/Jacket_M88_rolledup.et"
+     }
+     SCR_EditableEntityVariant "{65569C8869981BC2}" {
+      m_sVariantPrefab "{FD39B0B833BB927E}Prefabs/Characters/Uniforms/Jacket_Raincoat_01/Jacket_Raincoat_01_yellow.et"
+     }
+     SCR_EditableEntityVariant "{65569C8869873263}" {
+      m_sVariantPrefab "{7F1451790F3D75BD}Prefabs/Characters/Uniforms/Jacket_Raincoat_01/Jacket_Raincoat_01_green.et"
+     }
+     SCR_EditableEntityVariant "{65569C8869E1BEA9}" {
+      m_sVariantPrefab "{690819A92A3A8D14}Prefabs/Characters/Uniforms/Jacket_Raincoat_01/Jacket_Raincoat_01_orange.et"
+     }
+     SCR_EditableEntityVariant "{65569C8869CBB3EC}" {
+      m_sVariantPrefab "{AE93D885FDF713D4}Prefabs/Characters/Uniforms/Jacket_Suit_01/Jacket_Suit_01_black_V1.et"
+     }
+     SCR_EditableEntityVariant "{65569C8869338F5C}" {
+      m_sVariantPrefab "{52AB6EC3FE535303}Prefabs/Characters/Uniforms/Jacket_Suit_01/Jacket_Suit_01_Brown_V1.et"
+     }
+     SCR_EditableEntityVariant "{65569C88691CA788}" {
+      m_sVariantPrefab "{E652D625A46A00FC}Prefabs/Characters/Uniforms/Jacket_Suit_01/Jacket_Suit_01_Grey_V1.et"
+     }
+     SCR_EditableEntityVariant "{65569C88836083FF}" {
+      m_sVariantPrefab "{78C9B02C0CBD594C}Prefabs/Characters/Uniforms/Jacket_Tanker_USSR_01/Jacket_Tanker_USSR_01.et"
+     }
+     SCR_EditableEntityVariant "{65569C88834C4D6B}" {
+      m_sVariantPrefab "{CC2BAD4EACC9B2CA}Prefabs/Characters/Uniforms/Jacket_TAZ83/Jacket_TAZ83_01.et"
+     }
+     SCR_EditableEntityVariant "{65569C8884B485C2}" {
+      m_sVariantPrefab "{C7861F11D5334C0E}Prefabs/Characters/Uniforms/Jacket_US_BDU.et"
+     }
+     SCR_EditableEntityVariant "{65569C88849EE423}" {
+      m_sVariantPrefab "{293F577C298061E3}Prefabs/Characters/Uniforms/Jacket_US_BDU_02.et"
+     }
+     SCR_EditableEntityVariant "{65569C8884FBCF4F}" {
+      m_sVariantPrefab "{3CCA7A9BB4FD3197}Prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et"
+     }
+     SCR_EditableEntityVariant "{65569C8884E563D9}" {
+      m_sVariantPrefab "{A080C1AEBF921DC4}Prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup_02.et"
+     }
+     SCR_EditableEntityVariant "{65569C8884CF7C42}" {
+      m_sVariantPrefab "{D0C27D8DB0CC73D9}Prefabs/Characters/Uniforms/Shirt_CottonShirt_01/Shirt_CottonShirt_01_V1.et"
+     }
+     SCR_EditableEntityVariant "{65569C88843626F9}" {
+      m_sVariantPrefab "{86E0117B630414B5}Prefabs/Characters/Uniforms/Shirt_CottonShirt_01/Shirt_CottonShirt_01_V2.et"
+     }
+     SCR_EditableEntityVariant "{65569C888412B71A}" {
+      m_sVariantPrefab "{637C5D826FE183DE}Prefabs/Characters/Uniforms/Shirt_CottonShirt_01/Shirt_CottonShirt_01_V3.et"
+     }
+     SCR_EditableEntityVariant "{65569C88A3DF726C}" {
+      m_sVariantPrefab "{5E4878BA1A8D0AE9}Prefabs/Characters/Uniforms/Shirt_CottonShirt_01/Shirt_CottonShirt_01_V4.et"
+     }
+     SCR_EditableEntityVariant "{65569C88A334D9E8}" {
+      m_sVariantPrefab "{BBD4344316689D82}Prefabs/Characters/Uniforms/Shirt_CottonShirt_01/Shirt_CottonShirt_01_V5.et"
+     }
+     SCR_EditableEntityVariant "{65569C88A3155A43}" {
+      m_sVariantPrefab "{D78000A3AAAC12AC}Prefabs/Characters/Uniforms/Shirt_CottonShirt_01/Shirt_CottonShirt_01_V6.et"
+     }
+     SCR_EditableEntityVariant "{65569C88A3690675}" {
+      m_sVariantPrefab "{50F8B1F928F93ABD}Prefabs/Characters/Uniforms/Shirt_Turtleneck_01/Shirt_Turtleneck_01_beige.et"
+     }
+     SCR_EditableEntityVariant "{65569C88A4A87C78}" {
+      m_sVariantPrefab "{6A3F994EFFE22995}Prefabs/Characters/Uniforms/Shirt_Turtleneck_01/Shirt_Turtleneck_01_DarkBlue.et"
+     }
+     SCR_EditableEntityVariant "{65569C88A4CDDEE0}" {
+      m_sVariantPrefab "{B0F4EAC29E9058EA}Prefabs/Characters/Uniforms/Shirt_Turtleneck_01/Shirt_Turtleneck_01_grey.et"
+     }
+     SCR_EditableEntityVariant "{65577C5B42972C30}" {
+      m_sVariantPrefab "{27162F1F6EE6581A}Prefabs/Characters/Uniforms/Jacket_Denim_01/Jacket_Denim_01_brownShirt.et"
+     }
+     SCR_EditableEntityVariant "{65577C5B424D966F}" {
+      m_sVariantPrefab "{EB0D74A43F74B522}Prefabs/Characters/Uniforms/Jacket_Denim_01/Jacket_Denim_01_strippedShirt.et"
+     }
+    }
+   }
+  }
+ }
+}

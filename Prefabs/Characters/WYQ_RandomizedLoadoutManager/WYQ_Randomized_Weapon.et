@@ -1,0 +1,48 @@
+GenericEntity : "{C0F7DD85A86B2900}Prefabs/Weapons/Handguns/PM/Handgun_PM.et" {
+ ID "CFBAA4B725411E45"
+ components {
+  SCR_EditableEntityComponent "{6556CD871E723FBC}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556CD871F5B22B5}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6556F052FA3D627D}" {
+      m_sVariantPrefab "{C0F7DD85A86B2900}Prefabs/Weapons/Handguns/PM/Handgun_PM.et"
+     }
+     SCR_EditableEntityVariant "{6556CD87007334E8}" {
+      m_sVariantPrefab "{1353C6EAD1DCFE43}Prefabs/Weapons/Handguns/M9/Handgun_M9.et"
+     }
+     SCR_EditableEntityVariant "{6556CD87004E392A}" {
+      m_sVariantPrefab "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et"
+     }
+     SCR_EditableEntityVariant "{6556CD87019786B1}" {
+      m_sVariantPrefab "{3E413771E1834D2F}Prefabs/Weapons/Rifles/M16/Rifle_M16A2.et"
+     }
+     SCR_EditableEntityVariant "{6556CD870210A733}" {
+      m_sVariantPrefab "{BFEA719491610A45}Prefabs/Weapons/Rifles/AKS74U/Rifle_AKS74U.et"
+     }
+     SCR_EditableEntityVariant "{6556CD87027C0713}" {
+      m_sVariantPrefab "{B31929F65F0D0279}Prefabs/Weapons/Rifles/M14/Rifle_M21.et"
+     }
+     SCR_EditableEntityVariant "{6556CD875567A826}" {
+      m_sVariantPrefab "{9C948630078D154D}Prefabs/Weapons/Rifles/VZ58/Rifle_VZ58P.et"
+     }
+     SCR_EditableEntityVariant "{6556CD875540A6CF}" {
+      m_sVariantPrefab "{3EB02CDAD5F23C82}Prefabs/Weapons/Rifles/SVD/Rifle_SVD.et"
+     }
+     SCR_EditableEntityVariant "{6556CD8756999E18}" {
+      m_sVariantPrefab "{D2B48DEBEF38D7D7}Prefabs/Weapons/MachineGuns/M249/MG_M249.et"
+     }
+     SCR_EditableEntityVariant "{6556CD8756FF00D0}" {
+      m_sVariantPrefab "{D182DCDD72BF7E34}Prefabs/Weapons/MachineGuns/M60/MG_M60.et"
+     }
+     SCR_EditableEntityVariant "{6556CD8756C845D9}" {
+      m_sVariantPrefab "{A89BC9D55FFB4CD8}Prefabs/Weapons/MachineGuns/PKM/MG_PKM.et"
+     }
+     SCR_EditableEntityVariant "{6556CD876854AB71}" {
+      m_sVariantPrefab "{A7AF84C6C58BA3E8}Prefabs/Weapons/MachineGuns/RPK74/MG_RPK74.et"
+     }
+    }
+   }
+  }
+ }
+}

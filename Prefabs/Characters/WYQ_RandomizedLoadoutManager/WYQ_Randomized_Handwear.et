@@ -1,0 +1,24 @@
+GameEntity : "{4F71E7468E78DDD2}Prefabs/Characters/Handwear/Gloves_Leather_01/Gloves_Leather_01.et" {
+ ID "5DF2774398EBD275"
+ components {
+  SCR_EditableEntityComponent "{6556F05D52FBBEA2}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556F05D53F0D4F7}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6556F05D57326667}" {
+      m_iRandomizerWeight 3
+     }
+     SCR_EditableEntityVariant "{6556F05D5712535C}" {
+      m_sVariantPrefab "{4F71E7468E78DDD2}Prefabs/Characters/Handwear/Gloves_Leather_01/Gloves_Leather_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D5763B466}" {
+      m_sVariantPrefab "{D19C474FA0F42CC4}Prefabs/Characters/Handwear/Gloves_Pilot_US_01/Gloves_Pilot_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D5744C186}" {
+      m_sVariantPrefab "{8266820FFDE17477}Prefabs/Characters/Handwear/Gloves_Wool_01/Gloves_Wool_01.et"
+     }
+    }
+   }
+  }
+ }
+}

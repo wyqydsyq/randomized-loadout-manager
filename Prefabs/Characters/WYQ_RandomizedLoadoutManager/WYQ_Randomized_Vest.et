@@ -1,0 +1,40 @@
+GenericEntity : "{4CBDC206FEF9897C}Prefabs/Characters/Vests/Vest_6B3/Vest_6B3.et" {
+ ID "50D8C49B3558F152"
+ components {
+  MeshObject "{5312D798A817A294}" {
+   Object "{650FB0DAE17ABCAC}Assets/Characters/Vests/Vest_Lifchik/Vest_Lifchik.xob"
+  }
+  SCR_EditableEntityComponent "{655701DA1ED8019F}" {
+   m_VariantData SCR_EditableEntityVariantData "{655701DA1ED80195}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{655701DA1ED801A6}" {
+      m_sVariantPrefab "{506EF3B2F0A69D34}Prefabs/Characters/Vests/Vest_NAZ/Vest_NAZ.et"
+     }
+     SCR_EditableEntityVariant "{655701DA1ED801A5}" {
+      m_sVariantPrefab "{F396524995F06BFA}Prefabs/Characters/Vests/Vest_SRU21P/Vest_SRU21P.et"
+     }
+     SCR_EditableEntityVariant "{655701DA1ED801BB}" {
+      m_sVariantPrefab "{ED5574EA7F63B457}Prefabs/Characters/Vests/Vest_Type56/Vest_Type56.et"
+     }
+     SCR_EditableEntityVariant "{655701DA1ED801B9}" {
+      m_sVariantPrefab "{9713FE6DDCC9510D}Prefabs/Characters/Vests/Vest_Lifchik/Vest_Lifchik.et"
+     }
+     SCR_EditableEntityVariant "{655701DA1ED801BC}" {
+      m_sVariantPrefab "{2835A0EA3B79E63E}Prefabs/Characters/Vests/Vest_ALICE/Variants/Vest_ALICE_rifleman.et"
+     }
+     SCR_EditableEntityVariant "{655701DA1ED801B2}" {
+      m_sVariantPrefab "{9945D5435F12C370}Prefabs/Characters/Vests/Vest_M79GrenadeCarrier/Vest_M79GrenadeCarrier.et"
+     }
+    }
+   }
+  }
+  BaseLoadoutClothComponent "{5312D798A71DFBB1}" {
+   AreaType LoadoutVestArea "{5A6ACB3232E440C7}" {
+   }
+   WornModel "{650FB0DAE17ABCAC}Assets/Characters/Vests/Vest_Lifchik/Vest_Lifchik.xob"
+   ItemModel "{99CB3E6D66287E9C}Assets/Characters/Vests/Vest_Lifchik/Vest_Lifchik_item.xob"
+   DeflatedModel "{650FB0DAE17ABCAC}Assets/Characters/Vests/Vest_Lifchik/Vest_Lifchik.xob"
+  }
+ }
+}

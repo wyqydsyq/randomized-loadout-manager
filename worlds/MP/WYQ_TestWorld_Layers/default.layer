@@ -1,0 +1,106 @@
+$grp SCR_ChimeraCharacter : "{CC5720945D248FE1}Prefabs/Characters/Core/Randomized_Character_Base.et" {
+ {
+  coords 115.475 1 153.507
+ }
+ {
+  coords 117.359 1 153.68
+ }
+ {
+  coords 117.571 1 150.045
+ }
+ {
+  coords 115.687 1 149.871
+ }
+ {
+  coords 113.68 1 153.181
+ }
+ {
+  coords 113.892 1 149.546
+ }
+ {
+  coords 112.008 1 149.372
+ }
+ {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 111.796 1 153.008
+ }
+ {
+  coords 109.869 1 152.859
+ }
+ {
+  coords 110.081 1 149.224
+ }
+ {
+  coords 108.197 1 149.05
+ }
+ {
+  coords 106.19 1 152.36
+ }
+ {
+  coords 106.402 1 148.725
+ }
+ {
+  coords 104.518 1 148.551
+ }
+ {
+  coords 104.306 1 152.187
+ }
+ {
+  coords 107.985 1 152.685
+ }
+ {
+  coords 117.812 1 146.419
+ }
+ {
+  coords 118.024 1 142.784
+ }
+ {
+  coords 116.14 1 142.61
+ }
+ {
+  coords 114.133 1 145.92
+ }
+ {
+  coords 114.345 1 142.285
+ }
+ {
+  coords 112.461 1 142.111
+ }
+ {
+  coords 112.249 1 145.747
+ }
+ {
+  coords 110.322 1 145.598
+ }
+ {
+  coords 110.534 1 141.963
+ }
+ {
+  coords 108.65 1 141.789
+ }
+ {
+  coords 106.643 1 145.099
+ }
+ {
+  coords 106.855 1 141.464
+ }
+ {
+  coords 104.971 1 141.29
+ }
+ {
+  coords 104.759 1 144.926
+ }
+ {
+  coords 108.438 1 145.424
+ }
+ {
+  coords 115.928 1 146.246
+ }
+}

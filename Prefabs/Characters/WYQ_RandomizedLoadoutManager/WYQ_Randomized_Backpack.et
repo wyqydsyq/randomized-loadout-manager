@@ -1,0 +1,42 @@
+GenericEntity : "{41A9C55B61F375F0}Prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et" {
+ ID "511E9C6ADE70F798"
+ components {
+  SCR_EditableEntityComponent "{6556F05A54B5FAC0}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556F05A55A99E91}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6556F05A58BB827E}" {
+      m_iRandomizerWeight 10
+     }
+     SCR_EditableEntityVariant "{6556F05A567B647D}" {
+      m_sVariantPrefab "{FDA7B6630DB87991}Prefabs/Items/Equipment/Backpacks/Backpack_M70_Swiss.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A5655402D}" {
+      m_sVariantPrefab "{7AC107CA7AFC9B59}Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A57BFEAC2}" {
+      m_sVariantPrefab "{79015191C0E77E48}Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet_02.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A57A607FC}" {
+      m_sVariantPrefab "{AC298BA8A7D27007}Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet_NoCross_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A578069AE}" {
+      m_sVariantPrefab "{E90F2EB67A9CF49A}Prefabs/Items/Equipment/Backpacks/Backpack_Medical_Soviet_NoCross_02.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A57EA8901}" {
+      m_sVariantPrefab "{6A39B5843B3F36DA}Prefabs/Items/Equipment/Backpacks/Backpack_RPG_Assistant.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A5737C2B2}" {
+      m_sVariantPrefab "{0D39750E5695B9D8}Prefabs/Items/Equipment/Backpacks/Backpack_RPG_Gunner.et"
+     }
+     SCR_EditableEntityVariant "{6556F05A571EE6A4}" {
+      m_sVariantPrefab "{3DE0155EC9767B98}Prefabs/Items/Equipment/Backpacks/Backpack_Veshmeshok.et"
+     }
+     SCR_EditableEntityVariant "{65577C5B3E9DE4B0}" {
+      m_sVariantPrefab "{41A9C55B61F375F0}Prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et"
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,48 @@
+GameEntity : "{6925E6C63EBCF623}Prefabs/Characters/Uniforms/Pants_Trousers_01/Pants_Trousers_01_DarkBrown.et" {
+ ID "5104869D194C6243"
+ components {
+  SCR_EditableEntityComponent "{6556F05200295535}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556F05201385A1F}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6556F05203BA0BF3}" {
+      m_sVariantPrefab "{0B1F0174869E0351}Prefabs/Characters/Uniforms/Pants_Fisherman_01/Pants_Fisherman_01_green.et"
+     }
+     SCR_EditableEntityVariant "{6556F05203A4AE68}" {
+      m_sVariantPrefab "{5B29F970DC4022D5}Prefabs/Characters/Uniforms/Pants_Fisherman_01/Pants_Fisherman_01_orange.et"
+     }
+     SCR_EditableEntityVariant "{6556F052038CAA67}" {
+      m_sVariantPrefab "{CF185061C5C13DBF}Prefabs/Characters/Uniforms/Pants_Fisherman_01/Pants_Fisherman_01_yellow.et"
+     }
+     SCR_EditableEntityVariant "{6556F05203F6ED4C}" {
+      m_sVariantPrefab "{06BC3F18B47799AE}Prefabs/Characters/Uniforms/Pants_M70.et"
+     }
+     SCR_EditableEntityVariant "{6556F05203D4310B}" {
+      m_sVariantPrefab "{DCF980831E880F6A}Prefabs/Characters/Uniforms/Pants_M88.et"
+     }
+     SCR_EditableEntityVariant "{6556F052033D561B}" {
+      m_sVariantPrefab "{1A65EADE4B08583E}Prefabs/Characters/Uniforms/Pants_Suit_01/Pants_Suit_01_black_V1.et"
+     }
+     SCR_EditableEntityVariant "{6556F052032728AE}" {
+      m_sVariantPrefab "{E65D5C9848AC18E9}Prefabs/Characters/Uniforms/Pants_Suit_01/Pants_Suit_01_brown_V1.et"
+     }
+     SCR_EditableEntityVariant "{6556F052030044C0}" {
+      m_sVariantPrefab "{401072A652DD9849}Prefabs/Characters/Uniforms/Pants_Suit_01/Pants_Suit_01_grey_V1.et"
+     }
+     SCR_EditableEntityVariant "{6556F052036D8BF0}" {
+      m_sVariantPrefab "{27494A16F172A97B}Prefabs/Characters/Uniforms/Pants_Tanker_USSR_01/Pants_Tanker_USSR_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F052035383D4}" {
+      m_sVariantPrefab "{6925E6C63EBCF623}Prefabs/Characters/Uniforms/Pants_Trousers_01/Pants_Trousers_01_DarkBrown.et"
+     }
+     SCR_EditableEntityVariant "{6556F05225B8A073}" {
+      m_sVariantPrefab "{5A8C9A020BD7ABA6}Prefabs/Characters/Uniforms/Pants_Trousers_01/Pants_Trousers_01_DarkGrey.et"
+     }
+     SCR_EditableEntityVariant "{6556F05225A461A8}" {
+      m_sVariantPrefab "{65B7093231FBF67E}Prefabs/Characters/Uniforms/Pants_Trousers_01/Pants_Trousers_01_LightBrown.et"
+     }
+    }
+   }
+  }
+ }
+}

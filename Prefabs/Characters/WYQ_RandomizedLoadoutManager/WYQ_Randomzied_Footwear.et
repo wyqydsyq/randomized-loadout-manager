@@ -1,0 +1,24 @@
+GenericEntity : "{C7923961D7235D70}Prefabs/Characters/Footwear/CombatBoots_Soviet_01.et" {
+ ID "521A80AC387D2829"
+ components {
+  SCR_EditableEntityComponent "{6556F05265D74BB5}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556F0526629D5DD}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6556F0526819E093}" {
+      m_sVariantPrefab "{C7923961D7235D70}Prefabs/Characters/Footwear/CombatBoots_Soviet_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F052687E790F}" {
+      m_sVariantPrefab "{DAAFD15478BDE1C3}Prefabs/Characters/Footwear/CombatBoots_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05268569DAE}" {
+      m_sVariantPrefab "{203EEA924B049EF1}Prefabs/Characters/Footwear/JungleBoots_01/JungleBoots_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05269A48A32}" {
+      m_sVariantPrefab "{F05A35BCC44BE9FC}Prefabs/Characters/Footwear/TankerBoots_US_01/TankerBoots_US_01.et"
+     }
+    }
+   }
+  }
+ }
+}

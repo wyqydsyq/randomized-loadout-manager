@@ -1,0 +1,36 @@
+GenericEntity : "{4CBDC206FEF9897C}Prefabs/Characters/Vests/Vest_6B3/Vest_6B3.et" {
+ ID "50D8C49B3558F152"
+ components {
+  SCR_EditableEntityComponent "{6556F0528790910B}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556F0528910EC6A}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6557020C01DB6324}" {
+      m_iRandomizerWeight 5
+     }
+     SCR_EditableEntityVariant "{655702301D75AF1A}" {
+      m_sVariantPrefab "{4CBDC206FEF9897C}Prefabs/Characters/Vests/Vest_6B3/Vest_6B3.et"
+     }
+     SCR_EditableEntityVariant "{6556F0528BE4A956}" {
+      m_sVariantPrefab "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et"
+     }
+     SCR_EditableEntityVariant "{6557023059DC64FD}" {
+      m_sVariantPrefab "{4B57C11AA5161760}Prefabs/Characters/Vests/Vest_PASGT/Vest_PASGT.et"
+     }
+     SCR_EditableEntityVariant "{65570230DE4DCC1D}" {
+      m_sVariantPrefab "{F9ACDDE62D906D61}Prefabs/Characters/Vests/Vest_M69/Vest_M69_olive.et"
+     }
+     SCR_EditableEntityVariant "{65570230DF638439}" {
+      m_sVariantPrefab "{725C5E1C75CADAF4}Prefabs/Characters/Vests/Vest_M69/Vest_M69_M81woodland.et"
+     }
+    }
+   }
+  }
+  BaseLoadoutClothComponent "{5312D798A71DFBB1}" {
+   BlockedSlots {
+    LoadoutArmoredVestSlotArea "{5E58BD05D941F8D4}" {
+    }
+   }
+  }
+ }
+}

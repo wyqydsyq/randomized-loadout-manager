@@ -1,0 +1,123 @@
+GameEntity : "{DD565E2C7E00A5BB}Prefabs/Characters/HeadGear/Hat_FlatCap_01/Hat_FlatCap_01_blue.et" {
+ ID "5112706CD4157AC7"
+ components {
+  SCR_EditableEntityComponent "{6556F05D77530B43}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556F05D7996F577}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{6556F05D7BE22BCC}" {
+      m_sVariantPrefab "{DD565E2C7E00A5BB}Prefabs/Characters/HeadGear/Hat_FlatCap_01/Hat_FlatCap_01_blue.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7BC0C542}" {
+      m_sVariantPrefab "{E12126CDE731EED5}Prefabs/Characters/HeadGear/Hat_Boonie_US_01/Hat_Boonie_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7B2CD8B7}" {
+      m_sVariantPrefab "{67662815EFF734DD}Prefabs/Characters/HeadGear/Hat_FlatCap_01/Hat_FlatCap_01_darkgrey.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7B0929E2}" {
+      m_sVariantPrefab "{024D6092DA006DD1}Prefabs/Characters/HeadGear/Hat_Hard_01/Hat_Hard_01_blue.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7B73CD10}" {
+      m_sVariantPrefab "{112EF132833109C8}Prefabs/Characters/HeadGear/Hat_Hard_01/Hat_Hard_01_green.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7B5FA989}" {
+      m_sVariantPrefab "{DF26044449C06EAB}Prefabs/Characters/HeadGear/Hat_Hard_01/Hat_Hard_01_white.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7B45802D}" {
+      m_sVariantPrefab "{8F5261C6B57B95C8}Prefabs/Characters/HeadGear/Hat_Hard_01/Hat_Hard_01_yellow.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7CA3C14B}" {
+      m_sVariantPrefab "{BE19A15F1073E7BD}Prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_black.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7C88E6B4}" {
+      m_sVariantPrefab "{6B2256EBB8E267DD}Prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_blue.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D7CF3BE7A}" {
+      m_sVariantPrefab "{B9687B8829272E14}Prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_brown.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D969F2F2B}" {
+      m_sVariantPrefab "{D8D9EE7F3966589E}Prefabs/Characters/HeadGear/Hat_Knitted_01/Hat_Knitted_01_red.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D96E499D7}" {
+      m_sVariantPrefab "{B02281435AED8274}Prefabs/Characters/HeadGear/Hat_M70_01/Hat_M70_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D96C2DEE7}" {
+      m_sVariantPrefab "{2B29B7E1C6BD1048}Prefabs/Characters/HeadGear/Hat_M88_01/Hat_M88_01_v1.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D97C80AED}" {
+      m_sVariantPrefab "{793EEE2C133176F9}Prefabs/Characters/HeadGear/Hat_Panama_Soviet/Hat_Panama_Soviet_01_v1.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D97346CC3}" {
+      m_sVariantPrefab "{F545C1BE7C99954A}Prefabs/Characters/HeadGear/Hat_Patrol_US_01/Hat_Patrol_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D971F5646}" {
+      m_sVariantPrefab "{3523CB7D5961246B}Prefabs/Characters/HeadGear/Hat_PeakedCap_USSR_01/Hat_PeakedCap_USSR_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D9706B12B}" {
+      m_sVariantPrefab "{C0B4276A1405ED14}Prefabs/Characters/HeadGear/Hat_RadiovkaBeret_01/Hat_RadiovkaBeret_01_beige.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D97617C87}" {
+      m_sVariantPrefab "{200D967D2612147C}Prefabs/Characters/HeadGear/Hat_RadiovkaBeret_01/Hat_RadiovkaBeret_01_black.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D9748FB66}" {
+      m_sVariantPrefab "{6E0EC7AC1F6D748F}Prefabs/Characters/HeadGear/Hat_RadiovkaBeret_01/Hat_RadiovkaBeret_01_brown.et"
+     }
+     SCR_EditableEntityVariant "{6556F05D99D8C659}" {
+      m_sVariantPrefab "{17674905311133D7}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_alsworth.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DB7995BFF}" {
+      m_sVariantPrefab "{C9886336AAD9F74C}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_enp.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DB7FB2300}" {
+      m_sVariantPrefab "{6D08415FD18F2775}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_everon.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DB7DEAB39}" {
+      m_sVariantPrefab "{3E2C2A050DE84A64}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_fkdynamo.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DB730CCEA}" {
+      m_sVariantPrefab "{5977C0A606B65E6D}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_moto.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DB70DEA68}" {
+      m_sVariantPrefab "{477D52F01DC45C55}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_pohona.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DD6583CBC}" {
+      m_sVariantPrefab "{554D761A11D3D7EC}Prefabs/Characters/HeadGear/Hat_TruckerCap_01/Hat_TruckerCap_01_sawmillregina.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DD7BD14A4}" {
+      m_sVariantPrefab "{A22C976003AA5BA3}Prefabs/Characters/HeadGear/Hat_Ushanka_01/Hat_Ushanka_01_folded.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DD792AC39}" {
+      m_sVariantPrefab "{323641C91965842E}Prefabs/Characters/HeadGear/Hat_Ushanka_01/Hat_Ushanka_01_unfolded.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DD7F66DFA}" {
+      m_sVariantPrefab "{6BCAA9E5BC957693}Prefabs/Characters/HeadGear/Hat_ZmijovkaCap_01/Hat_ZmijovkaCap_01_black.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DD73C6EDB}" {
+      m_sVariantPrefab "{6D225E61B31D513A}Prefabs/Characters/HeadGear/Hat_ZmijovkaCap_01/Hat_ZmijovkaCap_01_green.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DC5069F2F}" {
+      m_sVariantPrefab "{1B568A254D1E519B}Prefabs/Characters/HeadGear/Hat_ZmijovkaCap_01/Hat_ZmijovkaCap_01_red.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DC6BDFE69}" {
+      m_sVariantPrefab "{C8EAB0985B66824A}Prefabs/Characters/HeadGear/Helmet_DH132_01/Helmet_DH132A_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DC6933A2D}" {
+      m_sVariantPrefab "{6E14F80C250F85FC}Prefabs/Characters/HeadGear/Helmet_M1_01/Helmet_M1_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DC661D87E}" {
+      m_sVariantPrefab "{483A80042765275F}Prefabs/Characters/HeadGear/Helmet_SPH4_01/Helmet_SPH4_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DC7B9D354}" {
+      m_sVariantPrefab "{A7E6D7ECD5F684D7}Prefabs/Characters/HeadGear/Helmet_SSh68_01/Helmet_SSh68_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DE880E5BB}" {
+      m_sVariantPrefab "{EB2F05A3751B905A}Prefabs/Characters/HeadGear/Helmet_TSh4_01/Helmet_TSh4_01.et"
+     }
+     SCR_EditableEntityVariant "{6556F05DE8DF6D1B}" {
+      m_sVariantPrefab "{E49D9EE7E2B3016C}Prefabs/Characters/HeadGear/Helmet_ZSh5_01/Helmet_ZSh5_01.et"
+     }
+    }
+   }
+  }
+ }
+}

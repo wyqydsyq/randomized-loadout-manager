@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{8E749EBF481E5A94}Prefabs/Characters/Uniforms/Pants_Trousers_01/WYQ_Randomzied_Pants.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass PS5 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

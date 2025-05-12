@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{0EE5C2C71CC6E43A}Prefabs/Characters/HeadGear/Hat_FlatCap_01/WYQ_Randomized_Headgear.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass PS5 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

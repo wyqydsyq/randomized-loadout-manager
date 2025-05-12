@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{97F81D65AEE4E0BD}Prefabs/Characters/Vests/Vest_6B3/WYQ_Randomized_Vest.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass PS5 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -1,0 +1,66 @@
+GenericEntity : "{A81F501D3EF6F38E}Prefabs/Items/Medicine/FieldDressing_01/FieldDressing_US_01.et" {
+ ID "50962113384405F4"
+ components {
+  SCR_EditableEntityComponent "{6556D9E736EC969E}" {
+   m_VariantData SCR_EditableEntityVariantData "{6556D9E7376A7962}" {
+    m_bRandomizeDefaultVariant 0
+    m_aVariants {
+     SCR_EditableEntityVariant "{65577C5B7BDF14E2}" {
+      m_sVariantPrefab "{A81F501D3EF6F38E}Prefabs/Items/Medicine/FieldDressing_01/FieldDressing_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73DD21357}" {
+      m_sVariantPrefab "{C3F1FA1E2EC2B345}Prefabs/Items/Medicine/FieldDressing_01/FieldDressing_USSR_01.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73874C055}" {
+      m_sVariantPrefab "{F2539FA5706E51E4}Prefabs/Items/Equipment/Binoculars/Binoculars_B12/Binoculars_B12.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73C57656B}" {
+      m_sVariantPrefab "{243948B23D90BECB}Prefabs/Items/Equipment/Binoculars/Binoculars_B8/Binoculars_B8.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73DBC6B2E}" {
+      m_sVariantPrefab "{0CF54B9A85D8E0D4}Prefabs/Items/Equipment/Binoculars/Binoculars_M22/Binoculars_M22.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73DA7D5E4}" {
+      m_sVariantPrefab "{7CEF68E2BC68CE71}Prefabs/Items/Equipment/Compass/Compass_Adrianov.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73D8E037F}" {
+      m_sVariantPrefab "{61D4F80E49BF9B12}Prefabs/Items/Equipment/Compass/Compass_SY183.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73DE8EBEA}" {
+      m_sVariantPrefab "{6E35D94130954509}Prefabs/Items/Equipment/Accessories/ETool_ALICE/ETool_ALICE_FreeRoamBuilding_Gadget.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73D3B49AD}" {
+      m_sVariantPrefab "{3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73D25D9D1}" {
+      m_sVariantPrefab "{575EA58E67448C2A}Prefabs/Items/Equipment/Flashlights/Flashlight_Soviet_01/Flashlight_Soviet_01.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E73D0EFA02}" {
+      m_sVariantPrefab "{AF3411AAF94D18C2}Prefabs/Items/Medicine/Gauze_02/Gauze_02.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E7766E6A82}" {
+      m_sVariantPrefab "{9132672C4D9B2102}Prefabs/Items/Equipment/Kits/MedicalKit_01/MedicalKit_01_FIA.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E777B32605}" {
+      m_sVariantPrefab "{33B2DFDCD0EBA3DB}Prefabs/Items/Equipment/Kits/RepairKit_01/RepairKit_01_wrench.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E765C2B75C}" {
+      m_sVariantPrefab "{00E36F41CA310E2A}Prefabs/Items/Medicine/SalineBag_01/SalineBag_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E765587DF3}" {
+      m_sVariantPrefab "{61A705D76908160C}Prefabs/Items/Equipment/Watches/Watch_Orlik38/Watch_Orlik38.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E766FEAF4D}" {
+      m_sVariantPrefab "{6FD6C96121905202}Prefabs/Items/Equipment/Watches/Watch_Vostok.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E88D3AA329}" {
+      m_sVariantPrefab "{D70216B1B2889129}Prefabs/Items/Medicine/Tourniquet_01/Tourniquet_US_01.et"
+     }
+     SCR_EditableEntityVariant "{6556D9E88D0284FC}" {
+      m_sVariantPrefab "{80E75A71C29190DB}Prefabs/Items/Medicine/Tourniquet_01/Tourniquet_USSR_01.et"
+     }
+    }
+   }
+  }
+ }
+}
