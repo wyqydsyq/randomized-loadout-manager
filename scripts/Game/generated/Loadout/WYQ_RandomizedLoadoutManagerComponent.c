@@ -10,6 +10,12 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 	[Attribute(defvalue:"10", params:"0 inf", desc:"Maximum amount of loot items to populate in storage")]
 	int m_maxLootItems;
 	
+	[Attribute(defvalue:"1", params:"0 inf", desc:"Minimum amount of magazines to populate in storage")]
+	int m_minMagazines;
+	
+	[Attribute(defvalue:"5", params:"0 inf", desc:"Maximum amount of magazines to populate in storage")]
+	int m_maxMagazines;
+	
 	string m_skipPrefabName = "SKIP";
 	
 	void WYQ_RandomizedLoadoutManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
@@ -144,7 +150,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				ResourceName resourceName = magazineEntity.GetPrefabData().GetPrefabName();
 				int currentMagCount = inv.GetMagazineCountByWeapon(wc);
 				
-				int limit = Math.RandomInt(2, 6 - currentMagCount);
+				int limit = Math.RandomInt(m_minMagazines, m_maxMagazines) - currentMagCount;
 				int count;
 				for (; count < limit; count++)
 				{
