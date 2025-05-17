@@ -4,36 +4,38 @@ SCR_ChimeraCharacter : "{37578B1666981FCE}Prefabs/Characters/Core/Character_Base
   CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
    AttachType InventoryStorageSlot "{0C3DA650B52E120B}" {
    }
-   WeaponTemplate "{DBE42556B90D415A}Prefabs/Weapons/Handguns/PM/WYQ_Randomized_Weapon.et"
+   WeaponTemplate "{DBE42556B90D415A}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Weapon.et"
   }
   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
    Slots {
     LoadoutSlotInfo Hat {
-     Prefab "{0EE5C2C71CC6E43A}Prefabs/Characters/HeadGear/Hat_FlatCap_01/WYQ_Randomized_Headgear.et"
+     Prefab "{0EE5C2C71CC6E43A}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Headgear.et"
     }
     LoadoutSlotInfo Jacket {
-     Prefab "{331C7E267EA318E1}Prefabs/Characters/Uniforms/Jacket_Denim_01/WYQ_Randomized_Jacket.et"
+     Prefab "{331C7E267EA318E1}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Jacket.et"
     }
     LoadoutSlotInfo ArmoredVest {
-     Prefab "{97F81D65AEE4E0BC}Prefabs/Characters/Vests/Vest_6B3/WYQ_Randomized_ArmoredVest.et"
+     Prefab "{97F81D65AEE4E0BC}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_ArmoredVest.et"
     }
     LoadoutSlotInfo Pants {
-     Prefab "{8E749EBF481E5A94}Prefabs/Characters/Uniforms/Pants_Trousers_01/WYQ_Randomzied_Pants.et"
+     Prefab "{8E749EBF481E5A94}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomzied_Pants.et"
     }
     LoadoutSlotInfo Boots {
-     Prefab "{7FF5BFF69450054A}Prefabs/Characters/Footwear/WYQ_Randomzied_Footwear.et"
+     Prefab "{7FF5BFF69450054A}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomzied_Footwear.et"
     }
     LoadoutSlotInfo Back {
-     Prefab "{5C2F8AF4E6302342}Prefabs/Items/Equipment/Backpacks/WYQ_Randomized_Backpack.et"
+     Prefab "{5C2F8AF4E6302342}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Backpack.et"
     }
     LoadoutSlotInfo Vest {
-     Prefab "{97F81D65AEE4E0BD}Prefabs/Characters/Vests/Vest_6B3/WYQ_Randomized_Vest.et"
+     Prefab "{97F81D65AEE4E0BD}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Vest.et"
     }
     LoadoutSlotInfo HandWear {
-     Prefab "{1454BC99C8402296}Prefabs/Characters/Handwear/Gloves_Leather_01/WYQ_Randomized_Handwear.et"
+     Prefab "{1454BC99C8402296}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Handwear.et"
     }
     LoadoutSlotInfo Loot {
-     Prefab "{253541F42F18A437}Prefabs/Items/Medicine/FieldDressing_01/WYQ_Randomized_Loot.et"
+     Prefab "{253541F42F18A437}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Loot.et"
+     AreaType WYQ_LoadoutLootArea "{6562480DEA16521B}" {
+     }
     }
    }
   }

@@ -25,15 +25,15 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(ent);
 		if (char)
-			DressNPC(src, char);
+			GetGame().GetCallqueue().Call(DressNPC, char);
 	}
 	
-	void DressNPC(IEntityComponentSource src, SCR_ChimeraCharacter char)
+	void DressNPC(SCR_ChimeraCharacter char)
 	{
-		IEntitySource entitySource = src.ToEntitySource();
 		IEntityComponentSource inventoryManagerComponent = SCR_BaseContainerTools.FindComponentSource(char.GetPrefabData().GetPrefab(), WYQ_RandomizedLoadoutManagerComponent);
+		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
 		
-		if (!inventoryManagerComponent)
+		if (!inventoryManagerComponent || !inv)
 			return;
 
 		BaseContainerList slotList = BaseContainerList.Cast(inventoryManagerComponent.GetObjectArray("Slots"));
@@ -46,70 +46,64 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			BaseContainer slot = slotList.Get(i);
 			ResourceName slotPrefab;
 			slot.Get("Prefab", slotPrefab);
-			if (!slotPrefab)
+			LoadoutAreaType slotType;
+			slot.Get("AreaType", slotType);
+
+			if (!slotPrefab || !slotType)
 				continue;
 			
-			if (slot.GetName() == "Loot")
+			// delete slot placeholder to create space for randomized variant
+			InventoryStorageSlot itemSlot = inv.GetCharacterStorage().GetSlotFromArea(slotType.Type());
+			IEntity placeholder = itemSlot.GetAttachedEntity();
+			if (placeholder)
+			{
+				itemSlot.DetachEntity();
+				SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
+			}
+			
+			if (slotType.Type() == WYQ_LoadoutLootArea)
 			{
 				GetGame().GetCallqueue().Call(StoreLoot, char, slotPrefab);
 			} else {
-				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab);
+				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
 			}
 		}
 		
 		GetGame().GetCallqueue().Call(EquipWeaponAndAmmo, char);
 	}
 	
-	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource)
+	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, LoadoutAreaType slotType)
 	{
 		if (!char)
 			return;
 		
+		PrintFormat("WYQ_RandomizedLoadoutManagerComponent::EquipItem(%1)", slotResource);
+		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
+		SCR_CharacterInventoryStorageComponent storage = inv.GetCharacterStorage();
 		EntitySpawnParams itemParams = EntitySpawnParams();
 		itemParams.Parent = char;
 		
 		ResourceName variant = GetRandomVariant(slotResource);
-		if (!variant || variant == m_skipPrefabName)
+		if (!storage || !variant || variant == m_skipPrefabName)
+			return;
+		
+		// don't insert if slot would already be blocked e.g. armored vest with rig blocks rig vest slot
+		if (!slotType || storage.IsAreaBlocked(slotType.Type()))
 		{
-			// remove base prefab when skipping a slot
-			IEntity temp = GetGame().SpawnEntityPrefab(Resource.Load(slotResource), GetGame().GetWorld(), itemParams);
-			InventoryStorageSlot slot = inv.GetCharacterStorage().FindSuitableSlotForItem(temp);
-			if (!slot)
-			{
-				SCR_EntityHelper.DeleteEntityAndChildren(temp);
-				return;
-			}
-			
-			IEntity currentEntity = slot.GetAttachedEntity();
-			if (currentEntity)
-			{
-				slot.DetachEntity(true);
-				SCR_EntityHelper.DeleteEntityAndChildren(currentEntity);
-				SCR_EntityHelper.DeleteEntityAndChildren(temp);
-			}
 			return;
 		}
-		
 		
 		Resource variantResource = Resource.Load(variant);
+		InventoryStorageSlot slot = storage.GetSlotFromArea(slotType.Type());
+		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
-		
-		InventoryStorageSlot slot = inv.GetCharacterStorage().FindSuitableSlotForItem(item);
-		if (!slot)
+		if (inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
 		{
+			slot.AttachEntity(item);
+		} else {
 			SCR_EntityHelper.DeleteEntityAndChildren(item);
-			return;
 		}
-		
-		IEntity currentEntity = slot.GetAttachedEntity();
-		if (currentEntity)
-		{
-			slot.DetachEntity(true);
-			SCR_EntityHelper.DeleteEntityAndChildren(currentEntity);
-		}
-		
-		inv.EquipAny(inv.GetCharacterStorage(), item);
 	}
 	
 	void EquipWeaponAndAmmo(SCR_ChimeraCharacter char)
@@ -171,6 +165,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 	{
 		if (!char)
 			return;
+		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
 		
 		EntitySpawnParams itemParams = EntitySpawnParams();
@@ -182,9 +177,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			// get random variant from slotted resource
 			Resource variantResource = Resource.Load(GetRandomVariant(slotResource));
 			IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
-			BaseInventoryStorageComponent storage = inv.FindStorageForItem(item);
+			BaseInventoryStorageComponent storage = inv.FindStorageForItem(item, EStoragePurpose.PURPOSE_DEPOSIT);
 			
-			if (inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && inv.TryInsertItem(item))
+			if (inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item) && inv.TryInsertItem(item))
 			{} else {
 				SCR_EntityHelper.DeleteEntityAndChildren(item);
 				break;

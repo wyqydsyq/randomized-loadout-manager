@@ -27,10 +27,6 @@ GenericEntity : "{4CBDC206FEF9897C}Prefabs/Characters/Vests/Vest_6B3/Vest_6B3.et
    }
   }
   BaseLoadoutClothComponent "{5312D798A71DFBB1}" {
-   BlockedSlots {
-    LoadoutArmoredVestSlotArea "{5E58BD05D941F8D4}" {
-    }
-   }
   }
  }
 }
