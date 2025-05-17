@@ -77,8 +77,6 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (!char)
 			return;
 		
-		PrintFormat("WYQ_RandomizedLoadoutManagerComponent::EquipItem(%1)", slotResource);
-		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
 		SCR_CharacterInventoryStorageComponent storage = inv.GetCharacterStorage();
 		EntitySpawnParams itemParams = EntitySpawnParams();
