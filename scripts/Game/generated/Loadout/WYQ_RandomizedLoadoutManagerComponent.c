@@ -173,7 +173,11 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
 		{
 			// get random variant from slotted resource
-			Resource variantResource = Resource.Load(GetRandomVariant(slotResource));
+			ResourceName variant = GetRandomVariant(slotResource);
+			if (!variant || variant == m_skipPrefabName)
+				continue;
+			
+			Resource variantResource = Resource.Load(variant);
 			IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
 			BaseInventoryStorageComponent storage = inv.FindStorageForItem(item, EStoragePurpose.PURPOSE_DEPOSIT);
 			
@@ -211,7 +215,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		foreach (SCR_EditableEntityVariant variant : variants)
 		{
 			// variants with no prefab set count as chance to not spawn anything in this slot
-			if (!variant.m_sVariantPrefab)
+			if (!variant.m_sVariantPrefab || variant.m_sVariantPrefab == "")
 			{
 				weightedArray.Insert(m_skipPrefabName, variant.m_iRandomizerWeight);
 				continue;
@@ -219,7 +223,10 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			
 			prefabResource = Resource.Load(variant.m_sVariantPrefab);
 			if (!prefabResource.IsValid())
+			{
+				weightedArray.Insert(m_skipPrefabName, variant.m_iRandomizerWeight);
 				continue;
+			}
 			
 			//~ Add to randomizer
 			weightedArray.Insert(variant.m_sVariantPrefab, variant.m_iRandomizerWeight);
