@@ -137,7 +137,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			
 			// replace it with randomized variant
  			inv.EquipWeapon(weapon);
-			ctrl.TryEquipRightHandItem(weapon, EEquipItemType.EEquipTypeWeapon);
+			//ctrl.TryEquipRightHandItem(weapon, EEquipItemType.EEquipTypeWeapon);
 			
 			// add mags for selected weapon
 			BaseWeaponComponent wc = BaseWeaponComponent.Cast(weapon.FindComponent(BaseWeaponComponent));
