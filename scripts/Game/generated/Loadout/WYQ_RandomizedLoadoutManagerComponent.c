@@ -18,6 +18,8 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 	
 	string m_skipPrefabName = "SKIP";
 	
+	bool m_storageFull = false;
+	
 	void WYQ_RandomizedLoadoutManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
 	{
 		if (!Replication.IsServer()) // only run on server, spawned items should get replicated to clients automatically
@@ -25,10 +27,10 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(ent);
 		if (char)
-			GetGame().GetCallqueue().Call(DressNPC, char);
+			GetGame().GetCallqueue().Call(ApplyRandomizedLoadout, char);
 	}
 	
-	void DressNPC(SCR_ChimeraCharacter char)
+	void ApplyRandomizedLoadout(SCR_ChimeraCharacter char)
 	{
 		IEntityComponentSource inventoryManagerComponent = SCR_BaseContainerTools.FindComponentSource(char.GetPrefabData().GetPrefab(), WYQ_RandomizedLoadoutManagerComponent);
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
@@ -63,13 +65,17 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			
 			if (slotType.Type() == WYQ_LoadoutLootArea)
 			{
-				GetGame().GetCallqueue().Call(StoreLoot, char, slotPrefab);
+				//GetGame().GetCallqueue().Call(StoreLoot, char, slotPrefab);
+				// call loot after all items equipped
+				GetGame().GetCallqueue().CallLater(StoreLoot, 2000, false, char, slotPrefab);
 			} else {
-				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
+				//GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
+				// call with randomized delay to avoid stampeding herd of replicatable item prefabs being spawned all at once
+				GetGame().GetCallqueue().CallLater(EquipItem, Math.RandomInt(0, 1000), false, char, slotPrefab, slotType);
 			}
 		}
 		
-		GetGame().GetCallqueue().Call(EquipWeaponAndAmmo, char);
+		GetGame().GetCallqueue().CallLater(EquipWeaponAndAmmo, 2000, false, char);
 	}
 	
 	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, LoadoutAreaType slotType)
@@ -164,28 +170,41 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (!char)
 			return;
 		
+		int lootCount;
+		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
+		{
+			GetGame().GetCallqueue().Call(SpawnLootItem, char, slotResource);
+		}
+	}
+	
+	bool SpawnLootItem(SCR_ChimeraCharacter char, ResourceName slotResource)
+	{
+		// get random variant from slotted resource
+		ResourceName variant = GetRandomVariant(slotResource);
+		if (m_storageFull || !variant || variant == m_skipPrefabName)
+			return true;
+		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
+		Resource variantResource = Resource.Load(variant);
 		
 		EntitySpawnParams itemParams = EntitySpawnParams();
 		itemParams.Parent = char;
 		
-		int lootCount;
-		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
+		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
+		BaseInventoryStorageComponent storage = inv.FindStorageForItem(item, EStoragePurpose.PURPOSE_DEPOSIT);
+		if (inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item))
 		{
-			// get random variant from slotted resource
-			ResourceName variant = GetRandomVariant(slotResource);
-			if (!variant || variant == m_skipPrefabName)
-				continue;
-			
-			Resource variantResource = Resource.Load(variant);
-			IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
-			BaseInventoryStorageComponent storage = inv.FindStorageForItem(item, EStoragePurpose.PURPOSE_DEPOSIT);
-			
-			if (inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item) && inv.TryInsertItem(item))
-			{} else {
+			bool insertedItem = inv.TryInsertItem(item);
+			if (!insertedItem) {
+				m_storageFull = true;
 				SCR_EntityHelper.DeleteEntityAndChildren(item);
-				break;
 			}
+			
+			return insertedItem;
+		} else {
+			m_storageFull = true;
+			SCR_EntityHelper.DeleteEntityAndChildren(item);
+			return false;
 		}
 	}
 	
