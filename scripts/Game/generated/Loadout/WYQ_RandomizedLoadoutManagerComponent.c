@@ -107,7 +107,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		
 		if (slot && inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
 		{
-			slot.AttachEntity(item);
+			GetGame().GetCallqueue().Call(slot.AttachEntity, item);
 		} else {
 			SCR_EntityHelper.DeleteEntityAndChildren(item);
 		}
