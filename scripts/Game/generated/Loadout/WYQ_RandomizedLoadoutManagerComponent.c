@@ -102,6 +102,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		InventoryStorageSlot slot = storage.GetSlotFromArea(slotType.Type());
 		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
+		if (!item)
+			return;
+		
 		if (slot && inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
 		{
 			slot.AttachEntity(item);
@@ -131,6 +134,8 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			ResourceName weaponPrefab = slottedWeaponComponent.GetOwner().GetPrefabData().GetPrefabName();
 
 			IEntity weapon = GetGame().SpawnEntityPrefab(Resource.Load(GetRandomVariant(weaponPrefab)), GetGame().GetWorld(), itemParams);
+			if (!weapon)
+				return;
 			
 			// delete slotted weapon
 			SCR_EntityHelper.DeleteEntityAndChildren(slottedWeaponEntity);
@@ -153,6 +158,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				for (; count < limit; count++)
 				{
 					IEntity mag = GetGame().SpawnEntityPrefab(Resource.Load(resourceName), GetGame().GetWorld(), itemParams);
+					if (!mag)
+						return;
+					
 					BaseInventoryStorageComponent storage = inv.FindStorageForItem(mag);
 					
 					if (inv.CanInsertItem(mag) && storage && storage.CanStoreItem(mag, -1) && inv.TryInsertItem(mag))
@@ -191,6 +199,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		itemParams.Parent = char;
 		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
+		if (!item)
+			return false;
+		
 		BaseInventoryStorageComponent storage = inv.FindStorageForItem(item, EStoragePurpose.PURPOSE_DEPOSIT);
 		if (inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item))
 		{
