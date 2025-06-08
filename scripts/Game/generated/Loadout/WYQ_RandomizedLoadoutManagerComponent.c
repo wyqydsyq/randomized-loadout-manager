@@ -102,7 +102,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		InventoryStorageSlot slot = storage.GetSlotFromArea(slotType.Type());
 		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
-		if (inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
+		if (slot && inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
 		{
 			slot.AttachEntity(item);
 		} else {
