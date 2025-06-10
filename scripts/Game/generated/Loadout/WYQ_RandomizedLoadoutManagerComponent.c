@@ -181,15 +181,19 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		int lootCount;
 		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
 		{
-			GetGame().GetCallqueue().Call(SpawnLootItem, char, slotResource);
+			if (!m_storageFull)
+				GetGame().GetCallqueue().Call(SpawnLootItem, char, slotResource);
 		}
 	}
 	
 	bool SpawnLootItem(SCR_ChimeraCharacter char, ResourceName slotResource)
 	{
+		if (m_storageFull)
+			return true;
+		
 		// get random variant from slotted resource
 		ResourceName variant = GetRandomVariant(slotResource);
-		if (m_storageFull || !variant || variant == m_skipPrefabName)
+		if (!variant || variant == m_skipPrefabName)
 			return true;
 		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
