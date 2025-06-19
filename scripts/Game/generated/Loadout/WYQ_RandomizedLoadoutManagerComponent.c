@@ -67,15 +67,15 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			{
 				//GetGame().GetCallqueue().Call(StoreLoot, char, slotPrefab);
 				// call loot after all items equipped
-				GetGame().GetCallqueue().CallLater(StoreLoot, 2000, false, char, slotPrefab);
+				GetGame().GetCallqueue().Call(StoreLoot, char, slotPrefab);
 			} else {
 				//GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
 				// call with randomized delay to avoid stampeding herd of replicatable item prefabs being spawned all at once
-				GetGame().GetCallqueue().CallLater(EquipItem, Math.RandomInt(0, 1000), false, char, slotPrefab, slotType);
+				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
 			}
 		}
 		
-		GetGame().GetCallqueue().CallLater(EquipWeaponAndAmmo, 2000, false, char);
+		GetGame().GetCallqueue().Call(EquipWeaponAndAmmo, char);
 	}
 	
 	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, LoadoutAreaType slotType)
@@ -107,7 +107,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		
 		if (slot && inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
 		{
-			GetGame().GetCallqueue().Call(slot.AttachEntity, item);
+			slot.AttachEntity(item);
 		} else {
 			SCR_EntityHelper.DeleteEntityAndChildren(item);
 		}
