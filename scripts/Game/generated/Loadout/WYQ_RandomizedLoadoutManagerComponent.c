@@ -57,6 +57,11 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			// delete slot placeholder to create space for randomized variant
 			InventoryStorageSlot itemSlot = inv.GetCharacterStorage().GetSlotFromArea(slotType.Type());
 			IEntity placeholder = itemSlot.GetAttachedEntity();
+			
+			// skip replacing non-placeholder entities to avoid swapping out persisted or non-random gear
+			if (placeholder && placeholder.GetPrefabData().GetPrefabName() != slotPrefab)
+				continue;
+			
 			if (placeholder)
 			{
 				itemSlot.DetachEntity();
