@@ -55,18 +55,18 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				continue;
 			
 			// delete slot placeholder to create space for randomized variant
-			InventoryStorageSlot itemSlot = inv.GetCharacterStorage().GetSlotFromArea(slotType.Type());
+			SCR_CharacterInventoryStorageComponent storage = inv.GetCharacterStorage();
+			InventoryStorageSlot itemSlot = storage.GetSlotFromArea(slotType.Type());
 			IEntity placeholder = itemSlot.GetAttachedEntity();
 			
 			// skip replacing non-placeholder entities to avoid swapping out persisted or non-random gear
-			if (placeholder && placeholder.GetPrefabData().GetPrefabName() != slotPrefab)
+			if (!placeholder || placeholder && placeholder.GetPrefabData().GetPrefabName() != slotPrefab)
 				continue;
 			
-			if (placeholder)
-			{
-				itemSlot.DetachEntity();
-				SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
-			}
+			array<InventoryItemComponent> subItems = {};
+			SCR_UniversalInventoryStorageComponent placeholderStorage = storage.GetStorageComponentFromEntity(placeholder);
+			if (placeholderStorage)
+				placeholderStorage.GetOwnedItems(subItems);
 			
 			if (slotType.Type() == WYQ_LoadoutLootArea)
 			{
@@ -76,14 +76,14 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			} else {
 				//GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
 				// call with randomized delay to avoid stampeding herd of replicatable item prefabs being spawned all at once
-				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
+				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType, subItems);
 			}
 		}
 		
 		GetGame().GetCallqueue().Call(EquipWeaponAndAmmo, char);
 	}
 	
-	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, LoadoutAreaType slotType)
+	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, LoadoutAreaType slotType, array<InventoryItemComponent> subItems)
 	{
 		if (!char)
 			return;
@@ -96,26 +96,19 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		ResourceName variant = GetRandomVariant(slotResource);
 		if (!storage || !variant || variant == m_skipPrefabName)
 			return;
-		
-		// don't insert if slot would already be blocked e.g. armored vest with rig blocks rig vest slot
-		if (!slotType || storage.IsAreaBlocked(slotType.Type()))
-		{
-			return;
-		}
-		
+
 		Resource variantResource = Resource.Load(variant);
 		InventoryStorageSlot slot = storage.GetSlotFromArea(slotType.Type());
+		IEntity placeholder = slot.GetAttachedEntity();
 		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
 		if (!item)
 			return;
+
+		foreach (InventoryItemComponent subItem : subItems)
+			inv.TryMoveItemToStorage(subItem.GetOwner(), storage.GetStorageComponentFromEntity(item));
 		
-		if (slot && inv.CanInsertItem(item) && storage.CanStoreItem(item, -1))
-		{
-			slot.AttachEntity(item);
-		} else {
-			SCR_EntityHelper.DeleteEntityAndChildren(item);
-		}
+		slot.AttachEntity(item);
 	}
 	
 	void EquipWeaponAndAmmo(SCR_ChimeraCharacter char)
@@ -137,6 +130,10 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		{
 			IEntity slottedWeaponEntity = slottedWeaponComponent.GetOwner();
 			ResourceName weaponPrefab = slottedWeaponComponent.GetOwner().GetPrefabData().GetPrefabName();
+			
+			// skip replacing non-placeholder entities to avoid swapping out persisted or non-random gear
+			if (!slottedWeaponEntity || slottedWeaponEntity && slottedWeaponEntity.GetPrefabData().GetPrefabName() != weaponPrefab)
+				return;
 
 			IEntity weapon = GetGame().SpawnEntityPrefab(Resource.Load(GetRandomVariant(weaponPrefab)), GetGame().GetWorld(), itemParams);
 			if (!weapon)
