@@ -22,7 +22,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 	
 	void WYQ_RandomizedLoadoutManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
 	{
-		if (!Replication.IsServer()) // only run on server, spawned items should get replicated to clients automatically
+		if (!Replication.IsServer() || !GetGame().InPlayMode()) // only run on server in play mode, spawned items should get replicated to clients automatically
 			return;
 		
 		SCR_ChimeraCharacter char = SCR_ChimeraCharacter.Cast(ent);
@@ -76,7 +76,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			} else {
 				//GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType);
 				// call with randomized delay to avoid stampeding herd of replicatable item prefabs being spawned all at once
-				GetGame().GetCallqueue().Call(EquipItem, char, slotPrefab, slotType, subItems);
+				EquipItem(char, slotPrefab, slotType, subItems);
 			}
 		}
 		
@@ -99,6 +99,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 
 		Resource variantResource = Resource.Load(variant);
 		InventoryStorageSlot slot = storage.GetSlotFromArea(slotType.Type());
+		if (!slot)
+			return;
+		
 		IEntity placeholder = slot.GetAttachedEntity();
 		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
@@ -108,7 +111,22 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		foreach (InventoryItemComponent subItem : subItems)
 			inv.TryMoveItemToStorage(subItem.GetOwner(), storage.GetStorageComponentFromEntity(item));
 		
-		slot.AttachEntity(item);
+		SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
+		
+		// don't insert if slot would already be blocked e.g. armored vest with rig blocks rig vest slot
+		if (storage.IsAreaBlocked(slotType.Type()))
+		{
+			//PrintFormat("WYQ_RandomizedLoadoutManagerComponent.EquipItem: %1 is blocked by entity in another slot, invalid config!", slotType.Type());
+			// re-attach placeholder and abort
+			//slot.AttachEntity(placeholder);
+			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
+			SCR_EntityHelper.DeleteEntityAndChildren(item);
+			return;
+		}
+		
+		inv.EquipAny(storage, item);
+		
+		SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
 	}
 	
 	void EquipWeaponAndAmmo(SCR_ChimeraCharacter char)
@@ -157,7 +175,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				
 				int limit = Math.RandomInt(m_minMagazines, m_maxMagazines) - currentMagCount;
 				int count;
-				for (; count < limit; count++)
+				for (; count <= limit; count++)
 				{
 					IEntity mag = GetGame().SpawnEntityPrefab(Resource.Load(resourceName), GetGame().GetWorld(), itemParams);
 					if (!mag)
