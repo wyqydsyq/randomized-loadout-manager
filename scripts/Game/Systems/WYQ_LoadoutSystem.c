@@ -1,6 +1,9 @@
 class WYQ_LoadoutSystem : WorldSystem
 {
-
+	bool started = false;
+	
+	DL_LootSystem lootSystem;
+	
 	ref SCR_WeightedArray<SCR_EntityCatalogEntry> lootData = new SCR_WeightedArray<SCR_EntityCatalogEntry>();
 	
 	ref array<SCR_EArsenalItemType> labels = {
@@ -21,7 +24,7 @@ class WYQ_LoadoutSystem : WorldSystem
 	};
 	
 	// map of LoadoutAreaType typename.ToString() -> weighted array
-	bool loadoutDataReady;
+	bool loadoutDataReady = false;
 	ref map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>> loadoutData = new map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>>();
 	
 	void WYQ_LoadoutSystem()
@@ -35,25 +38,20 @@ class WYQ_LoadoutSystem : WorldSystem
         outInfo
             .SetAbstract(false)
             .SetLocation(ESystemLocation.Both)
-            .AddPoint(WorldSystemPoint.FixedFrame)
-			.AddExecuteAfter(DL_LootSystem, WorldSystemPoint.Frame);
+			.AddExecuteAfter(DL_LootSystem, WorldSystemPoint.Frame)
+            .AddPoint(WorldSystemPoint.FixedFrame);
     }
 	
 	override void OnInit()
 	{
 		PrintFormat("WYQ_LoadoutSystem: OnInit");
 		
-		DL_LootSystem lootSystem = DL_LootSystem.GetInstance();
+		lootSystem = DL_LootSystem.GetInstance();
 		if (!lootSystem)
 		{
 			PrintFormat("WYQ_LoadoutSystem: Unable to find DE_LootSystem! Default placeholders will be used!", LogLevel.ERROR);
 			return;
 		}
-		
-		if (!lootSystem.lootDataReady)
-			lootSystem.Event_LootCatalogsReady.Insert(ReadLootCatalogs);
-		else
-			GetGame().GetCallqueue().Call(ReadLootCatalogs, lootSystem.lootData);
 	}
 	
 	static WYQ_LoadoutSystem GetInstance()
@@ -69,6 +67,16 @@ class WYQ_LoadoutSystem : WorldSystem
 	{
 		if (!Replication.IsServer()) // only calculate updates on server, changes are broadcast to clients
 			return;
+		
+		if (started)
+			return;
+		
+		started = true;
+		
+		if (!lootSystem.lootDataReady)
+			lootSystem.Event_LootCatalogsReady.Insert(ReadLootCatalogs);
+		else
+			GetGame().GetCallqueue().Call(ReadLootCatalogs, lootSystem.lootData);
 	}
 	
 	typename GetAreaTypeFromArsenalType(SCR_EArsenalItemType arsenalType, SCR_EArsenalItemMode mode)
@@ -153,8 +161,8 @@ class WYQ_LoadoutSystem : WorldSystem
 		//DL_LootSystem.GetInstance().Event_LootCatalogsReady.Remove(ReadLootCatalogs);
 		
 		loadoutDataReady = true;
-		Event_LoadoutCatalogsReady.Invoke(loadoutData);
 		
+		Event_LoadoutCatalogsReady.Invoke(loadoutData);
 		if (loadoutData.IsEmpty())
 			return false;
 		
