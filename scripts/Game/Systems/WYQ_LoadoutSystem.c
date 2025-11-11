@@ -46,8 +46,7 @@ class WYQ_LoadoutSystem : WorldSystem
 	{
 		PrintFormat("WYQ_LoadoutSystem: OnInit");
 		
-		lootSystem = DL_LootSystem.GetInstance();
-		if (!lootSystem)
+		if (!DL_LootSystem.GetInstance())
 		{
 			PrintFormat("WYQ_LoadoutSystem: Unable to find DE_LootSystem! Default placeholders will be used!", LogLevel.ERROR);
 			return;
@@ -73,10 +72,10 @@ class WYQ_LoadoutSystem : WorldSystem
 		
 		started = true;
 		
-		if (!lootSystem.lootDataReady)
-			lootSystem.Event_LootCatalogsReady.Insert(ReadLootCatalogs);
+		if (!DL_LootSystem.GetInstance().lootDataReady)
+			DL_LootSystem.GetInstance().Event_LootCatalogsReady.Insert(ReadLootCatalogs);
 		else
-			GetGame().GetCallqueue().Call(ReadLootCatalogs, lootSystem.lootData);
+			GetGame().GetCallqueue().Call(ReadLootCatalogs, DL_LootSystem.GetInstance().lootData);
 	}
 	
 	typename GetAreaTypeFromArsenalType(SCR_EArsenalItemType arsenalType, SCR_EArsenalItemMode mode)

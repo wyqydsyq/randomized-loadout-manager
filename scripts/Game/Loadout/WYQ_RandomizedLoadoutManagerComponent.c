@@ -32,7 +32,10 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		
 		char = SCR_ChimeraCharacter.Cast(ent);
 		
-		WYQ_LoadoutSystem.GetInstance().Event_LoadoutCatalogsReady.Insert(HandleCatalogsReady);
+		if (WYQ_LoadoutSystem.GetInstance().loadoutDataReady)
+			HandleCatalogsReady(WYQ_LoadoutSystem.GetInstance().loadoutData);
+		else
+			WYQ_LoadoutSystem.GetInstance().Event_LoadoutCatalogsReady.Insert(HandleCatalogsReady);
 	}
 	
 	void HandleCatalogsReady(map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>> data)
@@ -150,7 +153,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			armorSlot.AttachEntity(item);
 		}
 		else
-			slot.AttachEntity(item);
+			inv.EquipAny(storage, item);
 		
 		if (placeholder)
 			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
