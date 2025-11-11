@@ -206,8 +206,6 @@ $grp SCR_ChimeraCharacter : "{CC5720945D248FE1}Prefabs/Characters/WYQ_Randomized
    WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
     Slots {
      LoadoutSlotInfo Loot {
-      AreaType LoadoutLootArea "{6562480D96F2D7A5}" {
-      }
      }
     }
    }
@@ -840,5 +838,845 @@ $grp SCR_ChimeraCharacter : "{CC5720945D248FE1}Prefabs/Characters/WYQ_Randomized
  }
  Randomized_Character_Base_6562481452BCE8 {
   coords 131.5 1 133.911
+ }
+ Randomized_Character_Base_6562481452BC0C9 {
+  coords 136.584 1 153.695
+ }
+ Randomized_Character_Base_6562481452BC0B3E9 {
+  coords 125.108 1 152.382
+ }
+ Randomized_Character_Base_6562481452BC0A2B9 {
+  coords 125.32 1 148.747
+ }
+ Randomized_Character_Base_6562481452BC0C10 {
+  coords 121.429 1 151.883
+ }
+ Randomized_Character_Base_6562481452BC09D9 {
+  coords 142.402 1 150.707
+ }
+ Randomized_Character_Base_6562481452BC0A2B10 {
+  coords 140.475 1 150.559
+ }
+ Randomized_Character_Base_6562481452BC09D10 {
+  coords 127.247 1 148.895
+ }
+ Randomized_Character_Base_6562481452BC08C10 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 142.19 1 154.343
+ }
+ Randomized_Character_Base_6562481452BC0B3E10 {
+  coords 140.263 1 154.194
+ }
+ Randomized_Character_Base_6562481452BC0D9 {
+  coords 138.591 1 150.385
+ }
+ Randomized_Character_Base_6562481452BC51 {
+  coords 131.734 1 135.686
+ }
+ Randomized_Character_Base_6562481452BC18D10 {
+  coords 126.581 1 127.778
+ }
+ Randomized_Character_Base_6562481452BC19E10 {
+  coords 96.45 1 128.228
+ }
+ Randomized_Character_Base_6562481452BC52 {
+  coords 120.353 1 138.002
+ }
+ Randomized_Character_Base_6562481452BC18D11 {
+  coords 111.817 1 126.405
+ }
+ Randomized_Character_Base_6562481452BC53 {
+  coords 113.744 1 126.553
+ }
+ Randomized_Character_Base_6562481452BC54 {
+  coords 124.032 1 138.5
+ }
+ Randomized_Character_Base_6562481452BC18D12 {
+  coords 96.662 1 124.593
+ }
+ Randomized_Character_Base_6562481452BC168E9 {
+  coords 98.377 1 128.377
+ }
+ Randomized_Character_Base_6562481452BC168E10 {
+  coords 143.451 1 133.374
+ }
+ Randomized_Character_Base_6562481452BC168E11 {
+  coords 128.296 1 131.562
+ }
+ Randomized_Character_Base_6562481452BC18D13 {
+  coords 141.736 1 129.59
+ }
+ Randomized_Character_Base_6562481452BC1E9 {
+  coords 138.832 1 146.759
+ }
+ Randomized_Character_Base_6562481452BC3E9C9 {
+  coords 130.714 1 153.03
+ }
+ Randomized_Character_Base_6562481452BC1F9 {
+  coords 135.153 1 146.261
+ }
+ Randomized_Character_Base_6562481452BC55 {
+  coords 130.926 1 149.394
+ }
+ Randomized_Character_Base_6562481452BC3E9C10 {
+  coords 145.869 1 154.842
+ }
+ Randomized_Character_Base_6562481452BC1D9 {
+  coords 137.249 1 142.799
+ }
+ Randomized_Character_Base_6562481452BC1F10 {
+  coords 119.998 1 144.449
+ }
+ Randomized_Character_Base_6562481452BC56 {
+  coords 132.598 1 153.203
+ }
+ Randomized_Character_Base_6562481452BC1E10 {
+  coords 123.677 1 144.947
+ }
+ Randomized_Character_Base_6562481452BC168E12 {
+  coords 113.532 1 130.189
+ }
+ Randomized_Character_Base_6562481452BC15AA9 {
+  coords 115.416 1 130.362
+ }
+ Randomized_Character_Base_6562481452BC15AA10 {
+  coords 130.18 1 131.735
+ }
+ Randomized_Character_Base_6562481452BC57 {
+  coords 133.406 1 139.495
+ }
+ Randomized_Character_Base_6562481452BC15AA11 {
+  coords 145.335 1 133.547
+ }
+ Randomized_Character_Base_6562481452BC58 {
+  coords 143.663 1 129.738
+ }
+ Randomized_Character_Base_6562481452BC59 {
+  coords 115.628 1 126.727
+ }
+ Randomized_Character_Base_6562481452BC15AA12 {
+  coords 100.261 1 128.55
+ }
+ Randomized_Character_Base_6562481452BC60 {
+  coords 145.547 1 129.912
+ }
+ Randomized_Character_Base_6562481452BC15AA13 {
+  coords 114.608 1 144.07
+ }
+ Randomized_Character_Base_6562481452BC12A10 {
+  coords 116.615 1 140.76
+ }
+ Randomized_Character_Base_6562481452BC61 {
+  coords 112.936 1 140.261
+ }
+ Randomized_Character_Base_6562481452BC62 {
+  coords 118.287 1 144.569
+ }
+ Randomized_Character_Base_6562481452BC63 {
+  coords 114.82 1 140.435
+ }
+ Randomized_Character_Base_6562481452BC13B10 {
+  coords 118.499 1 140.934
+ }
+ Randomized_Character_Base_6562481452BC19E11 {
+  coords 110.797 1 143.748
+ }
+ Randomized_Character_Base_6562481452BC64 {
+  coords 108.46 1 150.835
+ }
+ Randomized_Character_Base_6562481452BC168E13 {
+  coords 112.724 1 143.897
+ }
+ Randomized_Character_Base_6562481452BC09D11 {
+  coords 112.483 1 147.522
+ }
+ Randomized_Character_Base_6562481452BC08C11 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 112.271 1 151.158
+ }
+ Randomized_Character_Base_6562481452BC65 {
+  coords 104.781 1 150.337
+ }
+ Randomized_Character_Base_6562481452BC0B3E11 {
+  coords 110.344 1 151.009
+ }
+ Randomized_Character_Base_6562481452BC0F9 {
+  coords 106.877 1 146.875
+ }
+ Randomized_Character_Base_6562481452BC06EC9 {
+  coords 114.367 1 147.696
+ }
+ Randomized_Character_Base_6562481452BC0C11 {
+  coords 106.665 1 150.51
+ }
+ Randomized_Character_Base_6562481452BC0A2B11 {
+  coords 110.556 1 147.374
+ }
+ Randomized_Character_Base_6562481452BC0E9 {
+  coords 104.993 1 146.701
+ }
+ Randomized_Character_Base_6562481452BC0D10 {
+  coords 108.672 1 147.2
+ }
+ Randomized_Character_Base_6562481452BC18D14 {
+  coords 125.773 1 141.486
+ }
+ Randomized_Character_Base_6562481452BC66 {
+  coords 144.739 1 143.62
+ }
+ Randomized_Character_Base_6562481452BC168E14 {
+  coords 142.643 1 147.082
+ }
+ Randomized_Character_Base_6562481452BC168E15 {
+  coords 127.488 1 145.27
+ }
+ Randomized_Character_Base_6562481452BC15AA14 {
+  coords 129.372 1 145.443
+ }
+ Randomized_Character_Base_6562481452BC15AA15 {
+  coords 144.527 1 147.255
+ }
+ Randomized_Character_Base_6562481452BC67 {
+  coords 142.855 1 143.446
+ }
+ Randomized_Character_Base_6562481452BC18D15 {
+  coords 140.928 1 143.298
+ }
+ Randomized_Character_Base_6562481452BC13B11 {
+  coords 148.418 1 144.119
+ }
+ Randomized_Character_Base_6562481452BC0C12 {
+  coords 107.473 1 136.802
+ }
+ Randomized_Character_Base_6562481452BC0D11 {
+  coords 94.325 1 131.68
+ }
+ Randomized_Character_Base_6562481452BC0E10 {
+  coords 135.72 1 136.178
+ }
+ Randomized_Character_Base_6562481452BC0E11 {
+  coords 120.565 1 134.366
+ }
+ Randomized_Character_Base_6562481452BC0D12 {
+  coords 139.399 1 136.677
+ }
+ Randomized_Character_Base_6562481452BC0D13 {
+  coords 124.244 1 134.865
+ }
+ Randomized_Character_Base_6562481452BC0D14 {
+  coords 109.48 1 133.492
+ }
+ Randomized_Character_Base_6562481452BC0C13 {
+  coords 137.392 1 139.987
+ }
+ Randomized_Character_Base_6562481452BC0E12 {
+  coords 105.801 1 132.993
+ }
+ Randomized_Character_Base_6562481452BC0E13 {
+  coords 90.646 1 131.181
+ }
+ Randomized_Character_Base_6562481452BC0B3E12 {
+  coords 111.152 1 137.301
+ }
+ Randomized_Character_Base_6562481452BC0B3E13 {
+  coords 95.997 1 135.489
+ }
+ Randomized_Character_Base_6562481452BC0C14 {
+  coords 92.318 1 134.99
+ }
+ Randomized_Character_Base_6562481452BC0C15 {
+  coords 122.237 1 138.175
+ }
+ Randomized_Character_Base_6562481452BC0A2B12 {
+  coords 96.209 1 131.854
+ }
+ Randomized_Character_Base_6562481452BC0B3E14 {
+  coords 125.916 1 138.674
+ }
+ Randomized_Character_Base_6562481452BC0A2B13 {
+  coords 141.283 1 136.851
+ }
+ Randomized_Character_Base_6562481452BC0A2B14 {
+  coords 126.128 1 135.039
+ }
+ Randomized_Character_Base_6562481452BC0B3E15 {
+  coords 141.071 1 140.486
+ }
+ Randomized_Character_Base_6562481452BC05FA9 {
+  coords 147.965 1 151.38
+ }
+ Randomized_Character_Base_6562481452BC68 {
+  coords 147.753 1 155.015
+ }
+ Randomized_Character_Base_6562481452BC3E9C11 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 100.795 1 149.845
+ }
+ Randomized_Character_Base_6562481452BC69 {
+  coords 146.081 1 151.206
+ }
+ Randomized_Character_Base_6562481452BC06EC10 {
+  coords 129.131 1 149.069
+ }
+ Randomized_Character_Base_6562481452BC06EC11 {
+  coords 144.286 1 150.881
+ }
+ Randomized_Character_Base_6562481452BCE9 {
+  coords 101.248 1 142.584
+ }
+ Randomized_Character_Base_6562481452BC05FA10 {
+  coords 132.81 1 149.568
+ }
+ Randomized_Character_Base_6562481452BC08C12 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 127.035 1 152.531
+ }
+ Randomized_Character_Base_6562481452BC07F9 {
+  coords 128.919 1 152.704
+ }
+ Randomized_Character_Base_6562481452BC07F10 {
+  coords 144.074 1 154.516
+ }
+ Randomized_Character_Base_6562481452BC18D16 {
+  coords 111.009 1 140.113
+ }
+ Randomized_Character_Base_6562481452BC1BE10 {
+  coords 109.125 1 139.939
+ }
+ Randomized_Character_Base_6562481452BC1D10 {
+  coords 107.33 1 139.614
+ }
+ Randomized_Character_Base_6562481452BC1F11 {
+  coords 105.234 1 143.076
+ }
+ Randomized_Character_Base_6562481452BC1C9 {
+  coords 105.446 1 139.44
+ }
+ Randomized_Character_Base_6562481452BC70 {
+  coords 101.007 1 146.209
+ }
+ Randomized_Character_Base_6562481452BC1E11 {
+  coords 108.913 1 143.574
+ }
+ Randomized_Character_Base_6562481452BC71 {
+  coords 102.679 1 150.018
+ }
+ Randomized_Character_Base_6562481452BCE10 {
+  coords 116.403 1 144.396
+ }
+ Randomized_Character_Base_6562481452BC1AC9 {
+  coords 107.118 1 143.249
+ }
+ Randomized_Character_Base_6562481452BC72 {
+  coords 105.589 1 136.629
+ }
+ Randomized_Character_Base_6562481452BC73 {
+  coords 109.268 1 137.127
+ }
+ Randomized_Character_Base_6562481452BC74 {
+  coords 139.187 1 140.312
+ }
+ Randomized_Character_Base_6562481452BC75 {
+  coords 135.508 1 139.814
+ }
+ Randomized_Character_Base_6562481452BC76 {
+  coords 146.889 1 137.498
+ }
+ Randomized_Character_Base_6562481452BC0F10 {
+  coords 137.604 1 136.352
+ }
+ Randomized_Character_Base_6562481452BC0F11 {
+  coords 92.53 1 131.355
+ }
+ Randomized_Character_Base_6562481452BC0F12 {
+  coords 107.685 1 133.167
+ }
+ Randomized_Character_Base_6562481452BC0F13 {
+  coords 122.449 1 134.54
+ }
+ Randomized_Character_Base_6562481452BC77 {
+  coords 128.508 1 127.926
+ }
+ Randomized_Character_Base_6562481452BC3E9C12 {
+  coords 101.603 1 136.137
+ }
+ Randomized_Character_Base_6562481452BC1F12 {
+  coords 120.806 1 130.741
+ }
+ Randomized_Character_Base_6562481452BC3E9C13 {
+  coords 131.522 1 139.322
+ }
+ Randomized_Character_Base_6562481452BC3E9C14 {
+  coords 116.758 1 137.949
+ }
+ Randomized_Character_Base_6562481452BC3E9C15 {
+  coords 146.677 1 141.134
+ }
+ Randomized_Character_Base_6562481452BC78 {
+  coords 101.815 1 132.501
+ }
+ Randomized_Character_Base_6562481452BC79 {
+  coords 130.392 1 128.1
+ }
+ Randomized_Character_Base_6562481452BC80 {
+  coords 94.113 1 135.315
+ }
+ Randomized_Character_Base_6562481452BC81 {
+  coords 90.434 1 134.817
+ }
+ Randomized_Character_Base_6562481452BC82 {
+  coords 133.859 1 132.234
+ }
+ Randomized_Character_Base_6562481452BC83 {
+  coords 103.487 1 136.31
+ }
+ Randomized_Character_Base_6562481452BC19E12 {
+  coords 111.605 1 130.04
+ }
+ Randomized_Character_Base_6562481452BC19E13 {
+  coords 141.524 1 133.225
+ }
+ Randomized_Character_Base_6562481452BC1AC10 {
+  coords 122.69 1 130.914
+ }
+ Randomized_Character_Base_6562481452BC1AC11 {
+  coords 137.845 1 132.726
+ }
+ Randomized_Character_Base_6562481452BC1AC12 {
+  coords 107.926 1 129.541
+ }
+ Randomized_Character_Base_6562481452BC1BE11 {
+  coords 124.697 1 127.604
+ }
+ Randomized_Character_Base_6562481452BC19E14 {
+  coords 126.369 1 131.413
+ }
+ Randomized_Character_Base_6562481452BC1AC13 {
+  coords 92.771 1 127.729
+ }
+ Randomized_Character_Base_6562481452BC1BE12 {
+  coords 94.778 1 124.419
+ }
+ Randomized_Character_Base_6562481452BCE11 {
+  coords 147.13 1 133.873
+ }
+ Randomized_Character_Base_6562481452BC84 {
+  coords 98.589 1 124.741
+ }
+ Randomized_Character_Base_6562481452BC85 {
+  coords 103.94 1 129.049
+ }
+ Randomized_Character_Base_6562481452BCE12 {
+  coords 117.211 1 130.688
+ }
+ Randomized_Character_Base_6562481452BC86 {
+  coords 100.473 1 124.915
+ }
+ Randomized_Character_Base_6562481452BC87 {
+  coords 148.561 1 141.307
+ }
+ Randomized_Character_Base_6562481452BCE13 {
+  coords 102.056 1 128.876
+ }
+ Randomized_Character_Base_6562481452BCE14 {
+  coords 131.975 1 132.061
+ }
+ Randomized_Character_Base_6562481452BC06EC12 {
+  coords 145.094 1 137.173
+ }
+ Randomized_Character_Base_6562481452BC07F11 {
+  coords 144.882 1 140.808
+ }
+ Randomized_Character_Base_6562481452BC07F12 {
+  coords 114.963 1 137.623
+ }
+ Randomized_Character_Base_6562481452BC05FA11 {
+  coords 133.618 1 135.86
+ }
+ Randomized_Character_Base_6562481452BC06EC13 {
+  coords 100.02 1 132.176
+ }
+ Randomized_Character_Base_6562481452BC07F13 {
+  coords 129.727 1 138.996
+ }
+ Randomized_Character_Base_6562481452BC06EC14 {
+  coords 129.939 1 135.361
+ }
+ Randomized_Character_Base_6562481452BC06EC15 {
+  coords 115.175 1 133.988
+ }
+ Randomized_Character_Base_6562481452BC07F14 {
+  coords 99.808 1 135.811
+ }
+ Randomized_Character_Base_6562481452BC1D11 {
+  coords 138.057 1 129.091
+ }
+ Randomized_Character_Base_6562481452BC1E12 {
+  coords 109.721 1 129.866
+ }
+ Randomized_Character_Base_6562481452BC1E13 {
+  coords 139.64 1 133.051
+ }
+ Randomized_Character_Base_6562481452BC1D12 {
+  coords 122.902 1 127.279
+ }
+ Randomized_Character_Base_6562481452BC1F13 {
+  coords 106.042 1 129.368
+ }
+ Randomized_Character_Base_6562481452BC1F14 {
+  coords 135.961 1 132.553
+ }
+ Randomized_Character_Base_6562481452BC1F15 {
+  coords 90.887 1 127.556
+ }
+ Randomized_Character_Base_6562481452BC1E14 {
+  coords 94.566 1 128.054
+ }
+ Randomized_Character_Base_6562481452BC1E15 {
+  coords 124.485 1 131.239
+ }
+ Randomized_Character_Base_6562481452BC1C11 {
+  coords 136.173 1 128.917
+ }
+ Randomized_Character_Base_6562481452BC1D13 {
+  coords 92.983 1 124.094
+ }
+ Randomized_Character_Base_6562481452BC1C12 {
+  coords 91.099 1 123.92
+ }
+ Randomized_Character_Base_6562481452BC1BE13 {
+  coords 139.852 1 129.416
+ }
+ Randomized_Character_Base_6562481452BC1C13 {
+  coords 106.254 1 125.732
+ }
+ Randomized_Character_Base_6562481452BC1C14 {
+  coords 121.018 1 127.105
+ }
+ Randomized_Character_Base_6562481452BC1D14 {
+  coords 108.138 1 125.906
+ }
+ Randomized_Character_Base_6562481452BC1BE14 {
+  coords 109.933 1 126.231
+ }
+ Randomized_Character_Base_6562481452BC12A11 {
+  coords 132.187 1 128.425
+ }
+ Randomized_Character_Base_6562481452BC13B12 {
+  coords 119.307 1 127.226
+ }
+ Randomized_Character_Base_6562481452BC13B13 {
+  coords 149.226 1 130.411
+ }
+ Randomized_Character_Base_6562481452BC12A12 {
+  coords 117.423 1 127.052
+ }
+ Randomized_Character_Base_6562481452BC88 {
+  coords 119.095 1 130.861
+ }
+ Randomized_Character_Base_6562481452BC13B14 {
+  coords 104.152 1 125.414
+ }
+ Randomized_Character_Base_6562481452BC13B15 {
+  coords 134.071 1 128.599
+ }
+ Randomized_Character_Base_6562481452BC89 {
+  coords 149.014 1 134.046
+ }
+ Randomized_Character_Base_6562481452BC12A13 {
+  coords 102.268 1 125.24
+ }
+ Randomized_Character_Base_6562481452BC12A14 {
+  coords 147.342 1 130.237
+ }
+ Randomized_Character_Base_6562481452BC05FA12 {
+  coords 102.891 1 146.383
+ }
+ Randomized_Character_Base_6562481452BC0B3E16 {
+  coords 95.189 1 149.197
+ }
+ Randomized_Character_Base_6562481452BC07F15 {
+  coords 99 1 149.519
+ }
+ Randomized_Character_Base_6562481452BC0E14 {
+  coords 89.838 1 144.889
+ }
+ Randomized_Character_Base_6562481452BC06EC16 {
+  coords 99.212 1 145.884
+ }
+ Randomized_Character_Base_6562481452BC09D12 {
+  coords 97.328 1 145.71
+ }
+ Randomized_Character_Base_6562481452BC0C16 {
+  coords 91.51 1 148.698
+ }
+ Randomized_Character_Base_6562481452BC0D15 {
+  coords 93.517 1 145.388
+ }
+ Randomized_Character_Base_6562481452BC0A2B15 {
+  coords 95.401 1 145.562
+ }
+ Randomized_Character_Base_6562481452BC08C13 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 97.116 1 149.346
+ }
+ Randomized_Character_Base_6562481452BC1D15 {
+  coords 92.175 1 137.802
+ }
+ Randomized_Character_Base_6562481452BC1BE15 {
+  coords 93.97 1 138.127
+ }
+ Randomized_Character_Base_6562481452BC1E16 {
+  coords 93.758 1 141.762
+ }
+ Randomized_Character_Base_6562481452BC90 {
+  coords 97.781 1 138.449
+ }
+ Randomized_Character_Base_6562481452BC1AC14 {
+  coords 91.963 1 141.437
+ }
+ Randomized_Character_Base_6562481452BC19E15 {
+  coords 95.642 1 141.936
+ }
+ Randomized_Character_Base_6562481452BC18D17 {
+  coords 95.854 1 138.301
+ }
+ Randomized_Character_Base_6562481452BC1F16 {
+  coords 90.079 1 141.264
+ }
+ Randomized_Character_Base_6562481452BC1C15 {
+  coords 90.291 1 137.628
+ }
+ Randomized_Character_Base_6562481452BC15AA16 {
+  coords 99.453 1 142.258
+ }
+ Randomized_Character_Base_6562481452BC12A15 {
+  coords 101.46 1 138.948
+ }
+ Randomized_Character_Base_6562481452BC91 {
+  coords 89.626 1 148.525
+ }
+ Randomized_Character_Base_6562481452BC0F14 {
+  coords 91.722 1 145.063
+ }
+ Randomized_Character_Base_6562481452BC92 {
+  coords 99.665 1 138.623
+ }
+ Randomized_Character_Base_6562481452BC93 {
+  coords 103.132 1 142.757
+ }
+ Randomized_Character_Base_6562481452BC168E16 {
+  coords 97.569 1 142.085
+ }
+ Randomized_Character_Base_6562481452BC94 {
+  coords 93.305 1 149.023
+ }
+ Randomized_Character_Base_6562481452BC13B16 {
+  coords 103.344 1 139.122
+ }
+ Randomized_Character_Base_6562481452BCE15 {
+  coords 131.167 1 145.769
+ }
+ Randomized_Character_Base_6562481452BC95 {
+  coords 127.7 1 141.634
+ }
+ Randomized_Character_Base_6562481452BC96 {
+  coords 118.642 1 138.122
+ }
+ Randomized_Character_Base_6562481452BC97 {
+  coords 129.584 1 141.808
+ }
+ Randomized_Character_Base_6562481452BC98 {
+  coords 123.224 1 152.208
+ }
+ Randomized_Character_Base_6562481452BC99 {
+  coords 133.051 1 145.942
+ }
+ Randomized_Character_Base_6562481452BC05FA13 {
+  coords 118.854 1 134.487
+ }
+ Randomized_Character_Base_6562481452BC05FA14 {
+  coords 148.773 1 137.672
+ }
+ Randomized_Character_Base_6562481452BC100 {
+  coords 116.97 1 134.313
+ }
+ Randomized_Character_Base_6562481452BC05FA15 {
+  coords 103.699 1 132.675
+ }
+ Randomized_Character_Base_6562481452BC101 {
+  coords 119.545 1 151.71
+ }
+ Randomized_Character_Base_6562481452BCE16 {
+  coords 146.322 1 147.581
+ }
+ Randomized_Character_Base_6562481452BC0E15 {
+  coords 119.757 1 148.074
+ }
+ Randomized_Character_Base_6562481452BC0F16 {
+  coords 121.641 1 148.248
+ }
+ Randomized_Character_Base_6562481452BC12A16 {
+  coords 146.534 1 143.945
+ }
+ Randomized_Character_Base_6562481452BC0F17 {
+  coords 136.796 1 150.06
+ }
+ Randomized_Character_Base_6562481452BC0E16 {
+  coords 134.912 1 149.886
+ }
+ Randomized_Character_Base_6562481452BC102 {
+  coords 148.206 1 147.754
+ }
+ Randomized_Character_Base_6562481452BC12A17 {
+  coords 131.379 1 142.133
+ }
+ Randomized_Character_Base_6562481452BC0D16 {
+  coords 123.436 1 148.573
+ }
+ Randomized_Character_Base_6562481452BC103 {
+  coords 134.7 1 153.522
+ }
+ Randomized_Character_Base_6562481452BC104 {
+  coords 138.379 1 154.02
+ }
+ Randomized_Character_Base_6562481452BC13B17 {
+  coords 133.263 1 142.307
+ }
+ Randomized_Character_Base_6562481452BC08C14 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 97.924 1 135.638
+ }
+ Randomized_Character_Base_6562481452BC0A2B16 {
+  coords 111.364 1 133.666
+ }
+ Randomized_Character_Base_6562481452BC09D13 {
+  coords 128.055 1 135.187
+ }
+ Randomized_Character_Base_6562481452BC08C15 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 127.843 1 138.823
+ }
+ Randomized_Character_Base_6562481452BC09D14 {
+  coords 143.21 1 136.999
+ }
+ Randomized_Character_Base_6562481452BC09D15 {
+  coords 113.291 1 133.814
+ }
+ Randomized_Character_Base_6562481452BC09D16 {
+  coords 98.136 1 132.002
+ }
+ Randomized_Character_Base_6562481452BC08C16 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 142.998 1 140.635
+ }
+ Randomized_Character_Base_6562481452BC08C17 {
+  components {
+   WYQ_RandomizedLoadoutManagerComponent "{520EA1D2DB11821E}" {
+    Slots {
+     LoadoutSlotInfo Loot {
+     }
+    }
+   }
+  }
+  coords 113.079 1 137.45
+ }
+ Randomized_Character_Base_6562481452BC1AC15 {
+  coords 121.882 1 144.622
+ }
+ Randomized_Character_Base_6562481452BC1BE16 {
+  coords 139.044 1 143.124
+ }
+ Randomized_Character_Base_6562481452BC1BE17 {
+  coords 123.889 1 141.312
+ }
+ Randomized_Character_Base_6562481452BC1C16 {
+  coords 135.365 1 142.625
+ }
+ Randomized_Character_Base_6562481452BC1C17 {
+  coords 120.21 1 140.813
+ }
+ Randomized_Character_Base_6562481452BC19E16 {
+  coords 140.716 1 146.933
+ }
+ Randomized_Character_Base_6562481452BC19E17 {
+  coords 125.561 1 145.121
+ }
+ Randomized_Character_Base_6562481452BC1AC16 {
+  coords 137.037 1 146.434
+ }
+ Randomized_Character_Base_6562481452BC1D16 {
+  coords 122.094 1 140.987
+ }
+ Randomized_Character_Base_6562481452BC105 {
+  coords 116.162 1 148.021
+ }
+ Randomized_Character_Base_6562481452BC3E9C16 {
+  coords 115.95 1 151.657
+ }
+ Randomized_Character_Base_6562481452BC106 {
+  coords 117.834 1 151.83
+ }
+ Randomized_Character_Base_6562481452BC07F16 {
+  coords 114.155 1 151.331
+ }
+ Randomized_Character_Base_6562481452BC05FA16 {
+  coords 118.046 1 148.195
  }
 }

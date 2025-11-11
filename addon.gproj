@@ -3,7 +3,7 @@ GameProject {
  GUID "6556901E02CC05F2"
  TITLE "Randomized Loadout Manager"
  Dependencies {
-  "58D0FB3206B6F859"
+  "58D0FB3206B6F859" "66B2F0B008DC590F"
  }
  Configurations {
   GameProjectConfig PC {
