@@ -9,7 +9,7 @@ Originally created to implement Scavs in [MercOut!](https://reforger.armaplatfor
 
 ### Automatic arsenal randomization
 Uses [DynamicLoot](https://reforger.armaplatform.com/workshop/66B2F0B008DC590F-DynamicLoot) to read and evaluate arsenal items from every faction's entity catalogs, this means chracter prefabs
-set up to use it will automatically randomly get any gear (vanilla or modded) added to their "loot tables".
+set up to use it will automatically get any gear (vanilla or modded) added to their "loot tables" with item rarity based on arsenal supply cost.
 
 This currently only works for vanilla loadout slots, modded slots will need to be [manually configured](#randomizing-new-slot-types--setting-fallback-variants) until a future update adds support for detecting them automatically.
 
