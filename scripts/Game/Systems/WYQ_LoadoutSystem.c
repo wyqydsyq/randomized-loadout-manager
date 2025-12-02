@@ -75,7 +75,7 @@ class WYQ_LoadoutSystem : WorldSystem
 		if (!DL_LootSystem.GetInstance().lootDataReady)
 			DL_LootSystem.GetInstance().Event_LootCatalogsReady.Insert(ReadLootCatalogs);
 		else
-			GetGame().GetCallqueue().Call(ReadLootCatalogs, DL_LootSystem.GetInstance().lootData);
+			DL_LootSystem.GetInstance().callQueue.Call(ReadLootCatalogs, DL_LootSystem.GetInstance().lootDataWeighted);
 	}
 	
 	typename GetAreaTypeFromArsenalType(SCR_EArsenalItemType arsenalType, SCR_EArsenalItemMode mode)

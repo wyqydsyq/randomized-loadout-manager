@@ -33,14 +33,14 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		char = SCR_ChimeraCharacter.Cast(ent);
 		
 		if (WYQ_LoadoutSystem.GetInstance().loadoutDataReady)
-			HandleCatalogsReady(WYQ_LoadoutSystem.GetInstance().loadoutData);
+			DL_LootSystem.GetInstance().callQueue.Call(HandleCatalogsReady, WYQ_LoadoutSystem.GetInstance().loadoutData);
 		else
 			WYQ_LoadoutSystem.GetInstance().Event_LoadoutCatalogsReady.Insert(HandleCatalogsReady);
 	}
 	
 	void HandleCatalogsReady(map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>> data)
 	{
-		GetGame().GetCallqueue().Call(ApplyRandomizedLoadout, data);
+		DL_LootSystem.GetInstance().callQueue.Call(ApplyRandomizedLoadout, data);
 	}
 	
 	void ApplyRandomizedLoadout(map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>> data)
@@ -91,7 +91,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			}
 		}
 		
-		GetGame().GetCallqueue().Call(EquipWeaponAndAmmo, char);
+		DL_LootSystem.GetInstance().callQueue.Call(EquipWeaponAndAmmo, char);
 	}
 	
 	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, typename slotType, array<InventoryItemComponent> subItems, int attempts = 0)
@@ -243,7 +243,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
 		{
 			if (!m_storageFull)
-				GetGame().GetCallqueue().Call(SpawnLootItem, char, slotResource);
+				DL_LootSystem.GetInstance().callQueue.Call(SpawnLootItem, char, slotResource);
 		}
 	}
 	
@@ -309,7 +309,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		variantData.GetVariants(variants);
 		if (DL_LootSystem.GetInstance()) // && variants.Count() == 0)
 		{
-			SCR_WeightedArray<SCR_EntityCatalogEntry> slotCatalog = DL_LootSystem.GetInstance().lootData;
+			SCR_WeightedArray<SCR_EntityCatalogEntry> slotCatalog = DL_LootSystem.GetInstance().lootDataWeighted;
 			
 			// filter to specific type if specified
 			if (type && loadoutData && loadoutData.Count() > 0)
