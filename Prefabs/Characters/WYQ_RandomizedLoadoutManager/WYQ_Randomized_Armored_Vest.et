@@ -1,0 +1,8 @@
+GameEntity : "{ADE19B33DCBB9005}Prefabs/Characters/Vests/Vest_6B2/Vest_6B2.et" {
+ ID "50D8C49B3558F152"
+ components {
+  SCR_EditableEntityComponent "{6718A012F54EEA38}" {
+  }
+ }
+ coords 150.027 1 154.268
+}

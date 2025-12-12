@@ -15,7 +15,6 @@ SCR_ChimeraCharacter : "{37578B1666981FCE}Prefabs/Characters/Core/Character_Base
      Prefab "{331C7E267EA318E1}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_Jacket.et"
     }
     LoadoutSlotInfo ArmoredVest {
-     Prefab "{97F81D65AEE4E0BC}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomized_ArmoredVest.et"
     }
     LoadoutSlotInfo Pants {
      Prefab "{8E749EBF481E5A94}Prefabs/Characters/WYQ_RandomizedLoadoutManager/WYQ_Randomzied_Pants.et"

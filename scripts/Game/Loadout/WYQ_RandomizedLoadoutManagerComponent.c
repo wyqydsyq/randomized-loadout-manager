@@ -23,6 +23,8 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 	static ref SCR_WeightedArray<SCR_EntityCatalogEntry> lootData = new SCR_WeightedArray<SCR_EntityCatalogEntry>();
 	
 	SCR_ChimeraCharacter char;
+	IEntity weapon;
+	ref array<int> attachedSlots = {};
 	ref map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>> loadoutData;
 	
 	void WYQ_RandomizedLoadoutManagerComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
@@ -65,10 +67,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			LoadoutAreaType slotType;
 			slot.Get("AreaType", slotType);
 
-			if (!slotPrefab || !slotType || slotType.Type() == WYQ_LoadoutWeaponArea)
+			if (!slotPrefab || slotPrefab == ResourceName.Empty || !slotType || slotType.Type() == WYQ_LoadoutWeaponArea)
 				continue;
 			
-			// delete slot placeholder to create space for randomized variant
 			SCR_CharacterInventoryStorageComponent storage = inv.GetCharacterStorage();
 			InventoryStorageSlot itemSlot = storage.GetSlotFromArea(slotType.Type());
 			IEntity placeholder = itemSlot.GetAttachedEntity();
@@ -83,15 +84,12 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				placeholderStorage.GetOwnedItems(subItems);
 			
 			if (slotType.Type() == WYQ_LoadoutLootArea)
-			{
-				// call loot after all items equipped
-				GetGame().GetCallqueue().Call(StoreLoot, char, slotPrefab);
-			} else {
+				DL_LootSystem.GetInstance().callQueue.Call(StoreLoot, char, slotPrefab);
+			else
 				EquipItem(char, slotPrefab, slotType.Type(), subItems);
-			}
 		}
 		
-		DL_LootSystem.GetInstance().callQueue.Call(EquipWeaponAndAmmo, char);
+		EquipWeaponAndAmmo(char);
 	}
 	
 	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, typename slotType, array<InventoryItemComponent> subItems, int attempts = 0)
@@ -104,7 +102,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		EntitySpawnParams itemParams = EntitySpawnParams();
 		itemParams.Parent = char;
 		
-		ResourceName variant = GetRandomVariantFromDynamicLoot(slotResource, slotType.ToString());
+		ResourceName variant = GetRandomItem(slotResource, slotType.ToString());
 		if (!storage || !variant || variant == m_skipPrefabName)
 			return;
 
@@ -120,13 +118,18 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
 		if (!item)
 			return;
+		
+		BaseLoadoutClothComponent clothComp = BaseLoadoutClothComponent.Cast(item.FindComponent(BaseLoadoutClothComponent));
+		// skip and retry on any cursed catalog entries that are not actually equippable items
+		if (!clothComp)
+			return EquipItem(char, slotResource, slotType, subItems, attempts + 1);
 
 		foreach (InventoryItemComponent subItem : subItems)
 			inv.TryMoveItemToStorage(subItem.GetOwner(), storage.GetStorageComponentFromEntity(item));
 
 		slot.DetachEntity(false);
 		
-		// don't insert if slot would already be blocked e.g. armored vest with rig blocks rig vest slot
+		// don't insert if slot would already be blocked e.g. armored vest with rig blocks carrier rig vest slot
 		if (storage.IsAreaBlocked(slotType) || !inv.CanInsertItem(item, EStoragePurpose.PURPOSE_LOADOUT_PROXY))
 		{
 			// re-attach placeholder and abort attempt with non-fitting item
@@ -141,27 +144,14 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			return;
 		}
 		
-		// if equipped an armored vest, queue another equip attempt for fitting rig vest
-		if (slotType == LoadoutVestArea && SCR_ArmorDamageManagerComponent.Cast(item.FindComponent(SCR_ArmorDamageManagerComponent)))
-		{
-			slot.AttachEntity(placeholder);
-			EquipItem(char, slotResource, LoadoutVestArea, subItems, attempts + 1);
-			if (placeholder)
-				slot.DetachEntity();
-			
-			InventoryStorageSlot armorSlot = storage.GetSlotFromArea(LoadoutArmoredVestSlotArea);
-			armorSlot.AttachEntity(item);
-		}
-		else
-			inv.EquipAny(storage, item);
+		inv.EquipAny(storage, item);
 		
 		if (placeholder)
 			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
-	}
-
-	void HandleReplaceItem()
-	{
 		
+		// if equipped an armored vest, queue another equip attempt for fitting rig vest
+		if (slotType == LoadoutVestArea && SCR_ArmorDamageManagerComponent.Cast(item.FindComponent(SCR_ArmorDamageManagerComponent)))
+			EquipItem(char, slotResource, LoadoutVestArea, {}, attempts + 1);
 	}
 	
 	void EquipWeaponAndAmmo(SCR_ChimeraCharacter char)
@@ -188,7 +178,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			if (!slottedWeaponEntity || slottedWeaponEntity && slottedWeaponEntity.GetPrefabData().GetPrefabName() != weaponPrefab)
 				return;
 
-			IEntity weapon = GetGame().SpawnEntityPrefab(Resource.Load(GetRandomVariantFromDynamicLoot(weaponPrefab, "WYQ_LoadoutWeaponArea")), GetGame().GetWorld(), itemParams);
+			weapon = GetGame().SpawnEntityPrefab(Resource.Load(GetRandomItem(weaponPrefab, "WYQ_LoadoutWeaponArea")), GetGame().GetWorld(), itemParams);
 			if (!weapon)
 				return;
 			
@@ -234,7 +224,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		}
 	}
 	
-	void StoreLoot(SCR_ChimeraCharacter char, ResourceName slotResource)
+	void StoreLoot(SCR_ChimeraCharacter char, ResourceName placeholder)
 	{
 		if (!char)
 			return;
@@ -243,27 +233,26 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
 		{
 			if (!m_storageFull)
-				DL_LootSystem.GetInstance().callQueue.Call(SpawnLootItem, char, slotResource);
+				DL_LootSystem.GetInstance().callQueue.Call(SpawnLootItem, char, placeholder);
 		}
 	}
 	
-	bool SpawnLootItem(SCR_ChimeraCharacter char, ResourceName slotResource)
+	bool SpawnLootItem(SCR_ChimeraCharacter char, ResourceName placeholderName)
 	{
 		if (m_storageFull)
 			return true;
 		
-		// get random variant from slotted resource
-		ResourceName variant = GetRandomVariantFromDynamicLoot(slotResource, "WYQ_LoadoutLootArea");
-		if (!variant || variant == m_skipPrefabName)
+		ResourceName resourceName = GetRandomItem(placeholderName, "WYQ_LoadoutLootArea");
+		if (!resourceName || resourceName == m_skipPrefabName)
 			return true;
 		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
-		Resource variantResource = Resource.Load(variant);
+		Resource resource = Resource.Load(resourceName);
 		
 		EntitySpawnParams itemParams = EntitySpawnParams();
 		itemParams.Parent = char;
 		
-		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
+		IEntity item = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), itemParams);
 		if (!item)
 			return false;
 		
@@ -274,7 +263,48 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			return false;
 		}
 		
-		if (inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item))
+		InventoryItemComponent invComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
+		if (weapon && invComp)
+		{
+			SCR_ItemAttributeCollection attr = SCR_ItemAttributeCollection.Cast(invComp.GetAttributes());
+			if (attr)
+			{
+				WeaponAttachmentAttributes attachmentAttr = WeaponAttachmentAttributes.Cast(attr.FindAttribute(WeaponAttachmentAttributes));
+				if (attachmentAttr)
+				{
+					SCR_WeaponAttachmentsStorageComponent attachmentStorage = SCR_WeaponAttachmentsStorageComponent.Cast(weapon.FindComponent(SCR_WeaponAttachmentsStorageComponent));
+					InventoryStorageSlot slot = attachmentStorage.FindSuitableSlotForItem(item);
+					if (slot)
+					{
+						int slotId = slot.GetID();
+						
+						// only attempt to attach a loot item to each slot once, subsequent items
+						// for already attached slot should just be stored as loot
+						if (!attachedSlots.Contains(slotId))
+						{
+							// try inserting attachment into an empty compatible slot
+							bool insertResult = inv.TryInsertItemInStorage(item, attachmentStorage, slotId);
+							if (insertResult)
+							{
+								attachedSlots.Insert(slotId);
+								return true;
+							}
+							
+							// try replacing default from prefab with attachment e.g. replace stock flash hider with a suppressor
+							bool replaceResult = inv.TryReplaceItem(attachmentStorage, item, slotId, new SCR_InvCallBack());
+							if (replaceResult)
+							{
+								attachedSlots.Insert(slotId);
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		bool equipped = inv.EquipAny(storage, item);
+		if (!equipped && inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item))
 		{
 			bool insertedItem = inv.TryInsertItem(item);
 			if (!insertedItem) {
@@ -283,48 +313,41 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			}
 			
 			return insertedItem;
-		} else {
+		} else if (!equipped)
 			SCR_EntityHelper.DeleteEntityAndChildren(item);
-			return false;
-		}
+		
+		return true;
 	}
 	
-	ResourceName GetRandomVariantFromDynamicLoot(ResourceName prefab, string type)
+	ResourceName GetRandomItem(ResourceName prefab, string type)
 	{
 		Resource prefabResource = Resource.Load(prefab);
 		if (!prefabResource.IsValid())
-			return prefab;
+			return ResourceName.Empty;
 		
 		IEntityComponentSource componentSource = SCR_BaseContainerTools.FindComponentSource(prefabResource, SCR_EditableEntityComponent);
 		if (!componentSource)
-			return prefab;
+			return GetRandomItemFromDynamicLoot(prefabResource, type);
 		
 		SCR_EditableEntityVariantData variantData;
 		componentSource.Get("m_VariantData", variantData);
 		
-		if (!variantData)
-			return prefab;
-
-		array<SCR_EditableEntityVariant> variants = {};
-		variantData.GetVariants(variants);
-		if (DL_LootSystem.GetInstance()) // && variants.Count() == 0)
+		if (variantData)
 		{
-			SCR_WeightedArray<SCR_EntityCatalogEntry> slotCatalog = DL_LootSystem.GetInstance().lootDataWeighted;
+			array<SCR_EditableEntityVariant> variants = {};
+			variantData.GetVariants(variants);
 			
-			// filter to specific type if specified
-			if (type && loadoutData && loadoutData.Count() > 0)
-				slotCatalog = loadoutData.Get(type);
-			
-			SCR_EntityCatalogEntry entry;
-			if (slotCatalog)
-				slotCatalog.GetRandomValue(entry);
-			if (entry)
-				return entry.GetPrefab();
-			
-			return prefab;
+			if (variants.Count() > 0)
+				return GetRandomItemFromVariants(prefabResource, type, variants, variantData);
 		}
 		
-		// DynamicLoot instance not found or manual variants specified for slot, proceed with vanilla variant randomization 
+		return GetRandomItemFromDynamicLoot(prefabResource, type);
+	}
+	
+	ResourceName GetRandomItemFromVariants(Resource prefabResource, string type, array<SCR_EditableEntityVariant> variants, SCR_EditableEntityVariantData variantData)
+	{
+		ResourceName prefab = prefabResource.GetResource().GetResourceName();
+		
 		SCR_WeightedArray<string> weightedArray = new SCR_WeightedArray<string>();
 		foreach (SCR_EditableEntityVariant variant : variants)
 		{
@@ -335,12 +358,9 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				continue;
 			}
 			
-			prefabResource = Resource.Load(variant.m_sVariantPrefab);
-			if (!prefabResource.IsValid())
-			{
-				weightedArray.Insert(m_skipPrefabName, variant.m_iRandomizerWeight);
+			Resource checkResource = Resource.Load(variant.m_sVariantPrefab);
+			if (!checkResource || !checkResource.IsValid())
 				continue;
-			}
 
 			weightedArray.Insert(variant.m_sVariantPrefab, variant.m_iRandomizerWeight);
 		}
@@ -354,5 +374,27 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		ResourceName randomVariant;
 		weightedArray.GetRandomValue(randomVariant);
 		return randomVariant;
+	}
+	
+	ResourceName GetRandomItemFromDynamicLoot(Resource prefabResource, string type)
+	{
+		ResourceName prefab = prefabResource.GetResource().GetResourceName();
+		DL_LootSystem lootSystem = DL_LootSystem.GetInstance();
+		if (!lootSystem)
+			return ResourceName.Empty;
+		
+		SCR_WeightedArray<SCR_EntityCatalogEntry> slotCatalog = lootSystem.lootDataWeighted;
+		
+		// filter to specific type if specified
+		if (type && loadoutData && loadoutData.Count() > 0)
+			slotCatalog = loadoutData.Get(type);
+		
+		SCR_EntityCatalogEntry entry;
+		if (slotCatalog)
+			slotCatalog.GetRandomValue(entry);
+		if (entry)
+			return entry.GetPrefab();
+		
+		return prefab;
 	}
 }
