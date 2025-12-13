@@ -78,7 +78,7 @@ class WYQ_LoadoutSystem : WorldSystem
 			DL_LootSystem.GetInstance().callQueue.Call(ReadLootCatalogs, DL_LootSystem.GetInstance().lootDataWeighted);
 	}
 	
-	typename GetAreaTypeFromArsenalType(SCR_EArsenalItemType arsenalType, SCR_EArsenalItemMode mode)
+	typename GetAreaTypeFromArsenalType(SCR_EntityCatalogEntry entry, SCR_EArsenalItemType arsenalType, SCR_EArsenalItemMode mode)
 	{
 		if (weaponTypes.Contains(arsenalType) && (mode == SCR_EArsenalItemMode.WEAPON || mode == SCR_EArsenalItemMode.WEAPON_VARIANTS))
 			return WYQ_LoadoutWeaponArea;
@@ -89,25 +89,29 @@ class WYQ_LoadoutSystem : WorldSystem
 			return LoadoutHeadCoverArea;
 			
 			case SCR_EArsenalItemType.VEST_AND_WAIST:
-			return LoadoutVestArea;
+				Resource prefabResource = Resource.Load(entry.GetPrefab());
+				IEntityComponentSource armorCompSrc = SCR_BaseContainerTools.FindComponentSource(prefabResource, SCR_ArmorDamageManagerComponent);
+				if (armorCompSrc)
+					return LoadoutArmoredVestSlotArea;
+				return LoadoutVestArea;
 			
 			case SCR_EArsenalItemType.TORSO:
-			return LoadoutJacketArea;
+				return LoadoutJacketArea;
 			
 			case SCR_EArsenalItemType.BACKPACK:
-			return LoadoutBackpackArea;
+				return LoadoutBackpackArea;
 			
 			case SCR_EArsenalItemType.HANDWEAR:
-			return LoadoutHandwearSlotArea;
+				return LoadoutHandwearSlotArea;
 			
 			case SCR_EArsenalItemType.LEGS:
-			return LoadoutPantsArea;
+				return LoadoutPantsArea;
 			
 			case SCR_EArsenalItemType.FOOTWEAR:
-			return LoadoutBootsArea;
+				return LoadoutBootsArea;
 			
 			default:
-			return WYQ_LoadoutLootArea;
+				return WYQ_LoadoutLootArea;
 		}
 		
 		return WYQ_LoadoutLootArea;
@@ -121,15 +125,14 @@ class WYQ_LoadoutSystem : WorldSystem
 	so when it comes to spawning items for a specific loadout area we can
 	just pull from its designated list
 	*/
-	bool ReadLootCatalogs(SCR_WeightedArray<SCR_EntityCatalogEntry> lootData)
+	bool ReadLootCatalogs(SCR_WeightedArray<SCR_EntityCatalogEntry> data)
 	{
-		int totalCount = lootData.Count();
+		int totalCount = data.Count();
 		PrintFormat("WYQ_LoadoutSystem: Reading %1 loot data entries from DynamicLoot", totalCount);
 		for (int i = 0; i < totalCount - 1; i++)
 		{
-			float value = 1;
-			float weight = lootData.GetWeight(i);
-			SCR_EntityCatalogEntry entry = lootData.Get(i);
+			float weight = data.GetWeight(i);
+			SCR_EntityCatalogEntry entry = data.Get(i);
 			if (!entry)
 				continue;			
 			
@@ -137,11 +140,20 @@ class WYQ_LoadoutSystem : WorldSystem
 			if (!item)
 				continue;
 			
+			IEntityComponentSource clothCompSrc = SCR_BaseContainerTools.FindComponentSource(item.GetItemResource(), BaseLoadoutClothComponent);
+			if (clothCompSrc)
+			{
+				string wornModel;
+				clothCompSrc.Get("WornModel", wornModel);
+				if (wornModel.Contains("TeamWeaponBag"))
+					continue;
+			}
+			
 			SCR_EArsenalItemType itemType = item.GetItemType();
 			if (!itemType)
 				continue;
-
-			typename areaType = GetAreaTypeFromArsenalType(itemType, item.GetItemMode());
+			
+			typename areaType = GetAreaTypeFromArsenalType(entry, itemType, item.GetItemMode());
 			
 			// lookup loot list for this area type or create if not yet defined
 			SCR_WeightedArray<SCR_EntityCatalogEntry> areaList = loadoutData.Get(areaType.ToString());

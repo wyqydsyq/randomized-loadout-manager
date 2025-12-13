@@ -4,16 +4,22 @@ class WYQ_RandomizedLoadoutManagerComponentClass: BaseLoadoutManagerComponentCla
 
 class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 {
-	[Attribute(defvalue:"5", params:"0 inf", desc:"Minimum amount of loot items to populate in storage")]
+	[Attribute(defvalue:"0.5", params:"0 1", desc: "Chance to spawn with a backpack", category: "Randomized Loadout Manager")]
+	float backpackChance;
+	
+	[Attribute(defvalue:"0.25", params:"0 1", desc: "Chance to spawn with an armored vest/plate carrier", category: "Randomized Loadout Manager")]
+	float armorChance;
+	
+	[Attribute(defvalue:"5", params:"0 inf", desc: "Minimum amount of loot items to populate in storage", category: "Randomized Loadout Manager")]
 	int m_minLootItems;
 	
-	[Attribute(defvalue:"20", params:"0 inf", desc:"Maximum amount of loot items to populate in storage")]
+	[Attribute(defvalue:"20", params:"0 inf", desc: "Maximum amount of loot items to populate in storage", category: "Randomized Loadout Manager")]
 	int m_maxLootItems;
 	
-	[Attribute(defvalue:"1", params:"0 inf", desc:"Minimum amount of magazines to populate in storage")]
+	[Attribute(defvalue:"1", params:"0 inf", desc: "Minimum amount of magazines to populate in storage", category: "Randomized Loadout Manager")]
 	int m_minMagazines;
 	
-	[Attribute(defvalue:"5", params:"0 inf", desc:"Maximum amount of magazines to populate in storage")]
+	[Attribute(defvalue:"5", params:"0 inf", desc: "Maximum amount of magazines to populate in storage", category: "Randomized Loadout Manager")]
 	int m_maxMagazines;
 	
 	string m_skipPrefabName = "SKIP";
@@ -33,11 +39,17 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			return;
 		
 		char = SCR_ChimeraCharacter.Cast(ent);
+		if (!char)
+			return;
 		
-		if (WYQ_LoadoutSystem.GetInstance().loadoutDataReady)
+		WYQ_LoadoutSystem loadoutSystem = WYQ_LoadoutSystem.GetInstance();
+		if (!loadoutSystem)
+			return;
+		
+		if (loadoutSystem.loadoutDataReady)
 			DL_LootSystem.GetInstance().callQueue.Call(HandleCatalogsReady, WYQ_LoadoutSystem.GetInstance().loadoutData);
 		else
-			WYQ_LoadoutSystem.GetInstance().Event_LoadoutCatalogsReady.Insert(HandleCatalogsReady);
+			loadoutSystem.Event_LoadoutCatalogsReady.Insert(HandleCatalogsReady);
 	}
 	
 	void HandleCatalogsReady(map<string, ref SCR_WeightedArray<SCR_EntityCatalogEntry>> data)
@@ -54,7 +66,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (!inventoryManagerComponent || !inv)
 			return;
 
-		BaseContainerList slotList = BaseContainerList.Cast(inventoryManagerComponent.GetObjectArray("Slots"));
+		BaseContainerList slotList = inventoryManagerComponent.GetObjectArray("Slots");
 		if (!slotList)
 			return;
 		
@@ -84,18 +96,16 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				placeholderStorage.GetOwnedItems(subItems);
 			
 			if (slotType.Type() == WYQ_LoadoutLootArea)
-				DL_LootSystem.GetInstance().callQueue.Call(StoreLoot, char, slotPrefab);
+				DL_LootSystem.GetInstance().callQueue.Call(StoreLoot, slotPrefab);
 			else
-				EquipItem(char, slotPrefab, slotType.Type(), subItems);
+				EquipItem(slotPrefab, slotType.Type(), subItems);
 		}
 		
-		EquipWeaponAndAmmo(char);
+		EquipWeaponAndAmmo();
 	}
 	
-	void EquipItem(SCR_ChimeraCharacter char, ResourceName slotResource, typename slotType, array<InventoryItemComponent> subItems, int attempts = 0)
+	void EquipItem(ResourceName slotResource, typename slotType, array<InventoryItemComponent> subItems, int attempts = 0)
 	{
-		if (!char)
-			return;
 		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
 		SCR_CharacterInventoryStorageComponent storage = inv.GetCharacterStorage();
@@ -115,6 +125,16 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (!placeholder)
 			return;
 		
+		if (
+			(slotType == LoadoutBackpackArea && Math.RandomFloat(0, 1) < backpackChance)
+			|| (slotType == LoadoutArmoredVestSlotArea && Math.RandomFloat(0, 1) < armorChance)
+		)
+		{
+			slot.DetachEntity(true);
+			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
+			return;
+		}
+		
 		IEntity item = GetGame().SpawnEntityPrefab(variantResource, GetGame().GetWorld(), itemParams);
 		if (!item)
 			return;
@@ -122,14 +142,14 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		BaseLoadoutClothComponent clothComp = BaseLoadoutClothComponent.Cast(item.FindComponent(BaseLoadoutClothComponent));
 		// skip and retry on any cursed catalog entries that are not actually equippable items
 		if (!clothComp)
-			return EquipItem(char, slotResource, slotType, subItems, attempts + 1);
+			return EquipItem(slotResource, slotType, subItems, attempts + 1);
 
 		foreach (InventoryItemComponent subItem : subItems)
 			inv.TryMoveItemToStorage(subItem.GetOwner(), storage.GetStorageComponentFromEntity(item));
 
 		slot.DetachEntity(false);
 		
-		// don't insert if slot would already be blocked e.g. armored vest with rig blocks carrier rig vest slot
+		// don't insert if slot would already be blocked e.g. armored vest with built-in rig blocks carrier rig vest slot
 		if (storage.IsAreaBlocked(slotType) || !inv.CanInsertItem(item, EStoragePurpose.PURPOSE_LOADOUT_PROXY))
 		{
 			// re-attach placeholder and abort attempt with non-fitting item
@@ -138,7 +158,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			
 			// re-attempt with a newly selected item in hopes of selecting a non-blocking one
 			if (attempts < 5)
-				return EquipItem(char, slotResource, slotType, subItems, attempts + 1);
+				return EquipItem(slotResource, slotType, subItems, attempts + 1);
 			
 			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
 			return;
@@ -149,16 +169,24 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (placeholder)
 			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
 		
-		// if equipped an armored vest, queue another equip attempt for fitting rig vest
-		if (slotType == LoadoutVestArea && SCR_ArmorDamageManagerComponent.Cast(item.FindComponent(SCR_ArmorDamageManagerComponent)))
-			EquipItem(char, slotResource, LoadoutVestArea, {}, attempts + 1);
+		InventoryStorageSlot armorSlot = storage.GetSlotFromArea(LoadoutArmoredVestSlotArea);
+		IEntity armorPlaceholder = armorSlot.GetAttachedEntity();
+		if (slotType == LoadoutVestArea && armorSlot && armorPlaceholder)
+		{
+			// if we equipped a plate carrier, try to equip a rig
+			if (
+				SCR_ArmorDamageManagerComponent.Cast(item.FindComponent(SCR_ArmorDamageManagerComponent))
+				&& !storage.IsAreaBlocked(slotType)
+			)
+				EquipItem(slotResource, LoadoutVestArea, {}, attempts + 1);
+			// if we equipped a rig, try to equip a plate carrier
+			else
+				EquipItem(armorPlaceholder.GetPrefabData().GetPrefabName(), LoadoutArmoredVestSlotArea, {}, attempts + 1);
+		}
 	}
 	
-	void EquipWeaponAndAmmo(SCR_ChimeraCharacter char)
+	void EquipWeaponAndAmmo()
 	{
-		if (!char)
-			return;
-		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
 		CharacterControllerComponent ctrl = char.GetCharacterController();
 		BaseWeaponManagerComponent wm = char.GetWeaponManager();
@@ -224,7 +252,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		}
 	}
 	
-	void StoreLoot(SCR_ChimeraCharacter char, ResourceName placeholder)
+	void StoreLoot(ResourceName placeholder)
 	{
 		if (!char)
 			return;
@@ -233,11 +261,11 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
 		{
 			if (!m_storageFull)
-				DL_LootSystem.GetInstance().callQueue.Call(SpawnLootItem, char, placeholder);
+				DL_LootSystem.GetInstance().callQueue.Call(SpawnLootItem, placeholder);
 		}
 	}
 	
-	bool SpawnLootItem(SCR_ChimeraCharacter char, ResourceName placeholderName)
+	bool SpawnLootItem(ResourceName placeholderName)
 	{
 		if (m_storageFull)
 			return true;
