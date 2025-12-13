@@ -96,7 +96,11 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				placeholderStorage.GetOwnedItems(subItems);
 			
 			if (slotType.Type() == WYQ_LoadoutLootArea)
+			{
+				itemSlot.DetachEntity();
+				SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
 				DL_LootSystem.GetInstance().callQueue.Call(StoreLoot, slotPrefab);
+			}
 			else
 				EquipItem(slotPrefab, slotType.Type(), subItems);
 		}
@@ -200,10 +204,16 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (slottedWeaponComponent)
 		{
 			IEntity slottedWeaponEntity = slottedWeaponComponent.GetOwner();
-			ResourceName weaponPrefab = slottedWeaponComponent.GetOwner().GetPrefabData().GetPrefabName();
+			if (!slottedWeaponEntity)
+				return;
+			
+			ResourceName weaponPrefab = slottedWeaponEntity.GetPrefabData().GetPrefabName();
+			if (!weaponPrefab)
+				return;
 			
 			// skip replacing non-placeholder entities to avoid swapping out persisted or non-random gear
-			if (!slottedWeaponEntity || slottedWeaponEntity && slottedWeaponEntity.GetPrefabData().GetPrefabName() != weaponPrefab)
+			IEntityComponentSource componentSource = SCR_BaseContainerTools.FindComponentSource(Resource.Load(weaponPrefab), SCR_EditableEntityComponent);
+			if (!componentSource)
 				return;
 
 			weapon = GetGame().SpawnEntityPrefab(Resource.Load(GetRandomItem(weaponPrefab, "WYQ_LoadoutWeaponArea")), GetGame().GetWorld(), itemParams);
@@ -301,6 +311,16 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				if (attachmentAttr)
 				{
 					SCR_WeaponAttachmentsStorageComponent attachmentStorage = SCR_WeaponAttachmentsStorageComponent.Cast(weapon.FindComponent(SCR_WeaponAttachmentsStorageComponent));
+					
+					// try inserting attachment into an empty compatible slot
+					bool insertResult = inv.TryInsertItemInStorage(item, attachmentStorage);
+					if (insertResult)
+					{
+						int slotId = attachmentStorage.FindItemSlot(item).GetID();
+						attachedSlots.Insert(slotId);
+						return true;
+					}
+					
 					InventoryStorageSlot slot = attachmentStorage.FindSuitableSlotForItem(item);
 					if (slot)
 					{
@@ -310,18 +330,14 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 						// for already attached slot should just be stored as loot
 						if (!attachedSlots.Contains(slotId))
 						{
-							// try inserting attachment into an empty compatible slot
-							bool insertResult = inv.TryInsertItemInStorage(item, attachmentStorage, slotId);
-							if (insertResult)
-							{
-								attachedSlots.Insert(slotId);
-								return true;
-							}
-							
-							// try replacing default from prefab with attachment e.g. replace stock flash hider with a suppressor
+							// try replacing default attachment from prefab e.g. replace stock flash hider with a suppressor
+							IEntity currentSlotEntity = slot.GetAttachedEntity();
 							bool replaceResult = inv.TryReplaceItem(attachmentStorage, item, slotId, new SCR_InvCallBack());
 							if (replaceResult)
 							{
+								if (currentSlotEntity)
+									SCR_EntityHelper.DeleteEntityAndChildren(currentSlotEntity);
+								
 								attachedSlots.Insert(slotId);
 								return true;
 							}
