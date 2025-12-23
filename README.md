@@ -2,7 +2,7 @@
 
 # Randomized Loadout Manager
 
-![Preview](https://i.imgur.com/GrWQGvL.gif "Preview")
+https://github.com/user-attachments/assets/f982f3e2-2c5e-4bc5-b00a-bbdb55c88931
 
 ## About
 Provides a drop-in replacement for the vanilla `BaseLoadoutManagerComponent` that enables full variant randomization of every loadout slot (+ weapons and loot!), allowing you to create thousands of uniquely kitted characters from a single character prefab. Great for randomizing player spawn loadouts in FFA game modes or implementing Scav-like NPCs.
