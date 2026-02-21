@@ -13,7 +13,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 	[Attribute(defvalue:"5", params:"0 inf", desc: "Minimum amount of loot items to populate in storage", category: "Randomized Loadout Manager")]
 	int m_minLootItems;
 	
-	[Attribute(defvalue:"20", params:"0 inf", desc: "Maximum amount of loot items to populate in storage", category: "Randomized Loadout Manager")]
+	[Attribute(defvalue:"10", params:"0 inf", desc: "Maximum amount of loot items to populate in storage", category: "Randomized Loadout Manager")]
 	int m_maxLootItems;
 	
 	[Attribute(defvalue:"1", params:"0 inf", desc: "Minimum amount of magazines to populate in storage", category: "Randomized Loadout Manager")]
@@ -71,6 +71,7 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			return;
 		
 		// randomize slot variants
+		ResourceName lootPlaceholder;
 		for (int i, count = slotList.Count(); i < count; i++)
 		{
 			BaseContainer slot = slotList.Get(i);
@@ -95,17 +96,19 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			if (placeholderStorage)
 				placeholderStorage.GetOwnedItems(subItems);
 			
+			// loot is processed manually after weapon so loot attachments can be applied
 			if (slotType.Type() == WYQ_LoadoutLootArea)
 			{
-				itemSlot.DetachEntity();
+				lootPlaceholder = slotPrefab;
 				SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
-				DL_LootSystem.GetInstance().callQueue.Call(StoreLoot, slotPrefab);
 			}
 			else
 				EquipItem(slotPrefab, slotType.Type(), subItems);
 		}
 		
 		EquipWeaponAndAmmo();
+		if (lootPlaceholder)
+			StoreLoot(lootPlaceholder);
 	}
 	
 	void EquipItem(ResourceName slotResource, typename slotType, array<InventoryItemComponent> subItems, int attempts = 0)
@@ -145,8 +148,16 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		
 		BaseLoadoutClothComponent clothComp = BaseLoadoutClothComponent.Cast(item.FindComponent(BaseLoadoutClothComponent));
 		// skip and retry on any cursed catalog entries that are not actually equippable items
-		if (!clothComp)
-			return EquipItem(slotResource, slotType, subItems, attempts + 1);
+		if (!clothComp || clothComp.GetAreaType().Type() != slotType)
+		{
+			SCR_EntityHelper.DeleteEntityAndChildren(item);
+			
+			if (attempts < 5)
+				return EquipItem(slotResource, slotType, subItems, attempts + 1);
+			
+			SCR_EntityHelper.DeleteEntityAndChildren(placeholder);
+			return;
+		}
 
 		foreach (InventoryItemComponent subItem : subItems)
 			inv.TryMoveItemToStorage(subItem.GetOwner(), storage.GetStorageComponentFromEntity(item));
@@ -270,19 +281,21 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		int lootCount;
 		for (int lootLimit = Math.RandomInt(m_minLootItems, m_maxLootItems); lootCount < lootLimit; lootCount++)
 		{
-			if (!m_storageFull)
-				DL_LootSystem.GetInstance().callQueue.Call(SpawnLootItem, placeholder);
+			if (m_storageFull)
+				break;
+			
+			SpawnLootItem(placeholder);
 		}
 	}
 	
 	bool SpawnLootItem(ResourceName placeholderName)
 	{
 		if (m_storageFull)
-			return true;
+			return false;
 		
 		ResourceName resourceName = GetRandomItem(placeholderName, "WYQ_LoadoutLootArea");
 		if (!resourceName || resourceName == m_skipPrefabName)
-			return true;
+			return false;
 		
 		SCR_InventoryStorageManagerComponent inv = SCR_InventoryStorageManagerComponent.Cast(char.FindComponent(SCR_InventoryStorageManagerComponent));
 		Resource resource = Resource.Load(resourceName);
@@ -294,12 +307,12 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 		if (!item)
 			return false;
 		
-		BaseInventoryStorageComponent storage = inv.FindStorageForItem(item, EStoragePurpose.PURPOSE_ANY);
+		/*BaseInventoryStorageComponent storage = inv.FindStorageForItem(item);
 		if (!storage)
 		{
 			SCR_EntityHelper.DeleteEntityAndChildren(item);
 			return false;
-		}
+		}*/
 		
 		InventoryItemComponent invComp = InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent));
 		if (weapon && invComp)
@@ -311,16 +324,6 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 				if (attachmentAttr)
 				{
 					SCR_WeaponAttachmentsStorageComponent attachmentStorage = SCR_WeaponAttachmentsStorageComponent.Cast(weapon.FindComponent(SCR_WeaponAttachmentsStorageComponent));
-					
-					// try inserting attachment into an empty compatible slot
-					bool insertResult = inv.TryInsertItemInStorage(item, attachmentStorage);
-					if (insertResult)
-					{
-						int slotId = attachmentStorage.FindItemSlot(item).GetID();
-						attachedSlots.Insert(slotId);
-						return true;
-					}
-					
 					InventoryStorageSlot slot = attachmentStorage.FindSuitableSlotForItem(item);
 					if (slot)
 					{
@@ -347,19 +350,10 @@ class WYQ_RandomizedLoadoutManagerComponent : BaseLoadoutManagerComponent
 			}
 		}
 		
-		bool equipped = inv.EquipAny(storage, item);
-		if (!equipped && inv.CanInsertItem(item) && storage && storage.CanStoreItem(item, -1) && storage.FindSuitableSlotForItem(item))
-		{
-			bool insertedItem = inv.TryInsertItem(item);
-			if (!insertedItem) {
-				m_storageFull = true;
-				SCR_EntityHelper.DeleteEntityAndChildren(item);
-			}
-			
-			return insertedItem;
-		} else if (!equipped)
-			SCR_EntityHelper.DeleteEntityAndChildren(item);
 		
+		SCR_EntityHelper.DeleteEntityAndChildren(item);
+		
+		inv.TrySpawnPrefabToStorage(resourceName);
 		return true;
 	}
 	

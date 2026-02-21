@@ -83,6 +83,10 @@ class WYQ_LoadoutSystem : WorldSystem
 		if (weaponTypes.Contains(arsenalType) && (mode == SCR_EArsenalItemMode.WEAPON || mode == SCR_EArsenalItemMode.WEAPON_VARIANTS))
 			return WYQ_LoadoutWeaponArea;
 		
+		ResourceName resourceName = entry.GetPrefab();
+		if (resourceName.Contains("NVG") || resourceName.Contains("Nightvision"))
+			return WYQ_LoadoutLootArea;
+		
 		switch (arsenalType)
 		{
 			case SCR_EArsenalItemType.HEADWEAR:
@@ -140,17 +144,37 @@ class WYQ_LoadoutSystem : WorldSystem
 			if (!item)
 				continue;
 			
-			IEntityComponentSource clothCompSrc = SCR_BaseContainerTools.FindComponentSource(item.GetItemResource(), BaseLoadoutClothComponent);
+			Resource resource = item.GetItemResource();
+			if (!resource || !resource.IsValid())
+				continue;
+			
+			SCR_EArsenalItemType itemType = item.GetItemType();
+			if (!itemType)
+				continue;
+			
+			IEntityComponentSource clothCompSrc = SCR_BaseContainerTools.FindComponentSource(resource, BaseLoadoutClothComponent);
 			if (clothCompSrc)
 			{
 				string wornModel;
 				clothCompSrc.Get("WornModel", wornModel);
-				if (wornModel.Contains("TeamWeaponBag"))
+				if (!wornModel || wornModel.Contains("TeamWeaponBag"))
 					continue;
+				
+				// ensure torso slot items have valid worn model and storage comp
+				// otherwise they will break character's torso slot w/ invisible torso
+				if (itemType == SCR_EArsenalItemType.TORSO)
+				{
+					Resource wornResource = Resource.Load(wornModel);
+					if (!wornResource || !wornResource.IsValid())
+						continue;
+					
+					IEntityComponentSource storageCompSrc = SCR_BaseContainerTools.FindComponentSource(resource, BaseInventoryStorageComponent);
+					if (!storageCompSrc)
+						continue;
+				}
 			}
 			
-			SCR_EArsenalItemType itemType = item.GetItemType();
-			if (!itemType)
+			if (itemType == SCR_EArsenalItemType.TORSO && !clothCompSrc)
 				continue;
 			
 			typename areaType = GetAreaTypeFromArsenalType(entry, itemType, item.GetItemMode());
@@ -162,9 +186,15 @@ class WYQ_LoadoutSystem : WorldSystem
 				ref SCR_WeightedArray<SCR_EntityCatalogEntry> newEntry = new SCR_WeightedArray<SCR_EntityCatalogEntry>();
 				newEntry.Insert(entry, weight);
 				loadoutData.Insert(areaType.ToString(), newEntry);
+				areaList = newEntry;
 			}
 			else
 				areaList.Insert(entry, weight);
+			
+			// also treat non-helmet headwear as loot to support layered RHS headgear
+			// e.g. NVGs, balaclava, goggles can spawn as loot items and be attached to compatible helmet
+			if (areaType.ToString() == "LoadoutHeadCoverArea" && !entry.GetPrefab().Contains("Helmet_") && !entry.GetPrefab().Contains("Hat_"))
+				loadoutData.Get("WYQ_LoadoutLootArea").Insert(entry, weight);
 			
 			//PrintFormat("WYQ_LoadoutSystem: Populated data for loadout area %1 with %2", areaType.ToString(), entry.GetPrefab());
 		}
